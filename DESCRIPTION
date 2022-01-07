@@ -1,16 +1,23 @@
 Package: mapcdatakeys
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Type: Package
+Title: Provides Various Data Keys for Various Massachusetts Geographies
+Version: 1.0
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    c(person(given = "MAPC",
+           family = "Boston, MA",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+           email = "adeodhar@mapc.org",
+           comment = c(ORCID = "YOUR-ORCID-ID")))
+Maintainer: Aseem Deodhar <adeodhar@mapc.org>
+Description: This package provides various data keys for different 
+    Massachusetts political and census geographies, 
+    such as municipalities, census tracts, counties, etc.
+License: CC0
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10)
+Imports: 
+    tibble

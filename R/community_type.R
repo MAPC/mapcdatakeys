@@ -1,0 +1,20 @@
+#' The 2008 Community Types developed by MAPC 
+#'
+#' In order to support planning, analysis, and policy development, the Metropolitan Area Planning Council has
+#' created a classification system of municipalities in Massachusetts. MAPC has identified five basic community
+#' types across the state, four of which can be subdivided further to yield nine sub-types. The criteria used to
+#' define Community Types include land use and housing patterns, recent growth trends, and projected
+#' development patterns. The Community Type system can be used to understand how demographic,
+#' economic, land use, energy, and transportation trends affect the Commonwealth’s diverse communities
+#' 
+#' @format A tibble with 351 rows and 6 variables:
+#' \describe{
+#'   \item{muni_id}{dbl Municipal ID Number 1 Abington through 351 Yarmouth}
+#'   \item{muni_name}{chr Official Municipality name} 
+#'   \item{cmtyp08_id}{dbl 2008 Community Type ID Number}
+#'   \item{cmtyp08}{chr 2008 Community Type Name}
+#'   \item{cmsbt08_id}{dbl 2008 Community Sub-Type ID Number}
+#'   \item{cmsbt08}{chr 2008 Community Sub-Type Name}
+#' }
+#' @source \url{http://www.mapc.org/wp-content/uploads/2017/09/Massachusetts-Community-Types-Summary-July_2008.pdf}
+"community_type"
