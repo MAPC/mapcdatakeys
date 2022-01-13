@@ -14,7 +14,7 @@ You can install the released version of mortgager with:
 devtools::install_github("MAPC/mapcdatakeys")
 ```
 
-## mortgager
+## mapcdatakeys
 
 Load the  package with this line:
 
