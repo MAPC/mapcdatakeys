@@ -44,7 +44,7 @@ You can install the released version of `{mapcdatakeys}` with:
 devtools::install_github("MAPC/mapcdatakeys")
 ```
 
-## Examples for
+## Example
 
 Load the package with this line:
 
