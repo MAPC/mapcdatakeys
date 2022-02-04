@@ -37,7 +37,7 @@ geographic levels in Massachusetts.
 
 ## Installation
 
-You can install the released version of `mapcdatakeys` with:
+You can install the released version of `{mapcdatakeys}` with:
 
 ``` r
 # install.packages("devtools")
