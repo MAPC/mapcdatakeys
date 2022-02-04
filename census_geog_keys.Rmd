@@ -1,0 +1,104 @@
+---
+title: "Keys for Census Geographies"
+author: "Aseem Deodhar"
+date: "2/3/2022"
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Keys for Census Geographies
+
+Municipal boundaries in Massachusetts have not changed since 1938 when the construction of the Quabbin Reservoir resulted in the disincorporation of several towns. 
+
+Census geographies such as tracts, block groups, and blocks however may change for every census to accommodate the changing landscape of population and housing unit changes. As such for longitudinal comparison a weighted crosswalk between census geographies at the same hierarchy level  is useful.
+
+Additionally, a nested crosswalk between census geographies, and municipalities is also useful for getting geographic distributions.
+
+These set of data keys and crosswalks provide for the above two kinds of data, and are described in detail below.
+
+## Available Data Keys:
+
+### Weighted Crosswalks
+
+#### Census Blocks
+
+```mapcdatakeys::census_xw_bl10```
+
+This crosswalk provides 2020 & 2010 block level data on Housing Units and Population in **2010 census block geographies** for easy cross-comparison.
+
+```{r}
+head(mapcdatakeys::census_xw_bl10)
+```
+
+```mapcdatakeys::census_xw_bl20```
+
+This crosswalk provides 2020 & 2010 block level data on Housing Units and Population in **2020 census block geographies** for easy cross-comparison.
+
+```{r}
+head(mapcdatakeys::census_xw_bl20)
+```
+
+#### Census Block Groups
+
+```mapcdatakeys::census_xw_bg10```
+
+This crosswalk provides 2020 & 2010 Block Group level data on Housing Units and Population in **2010 census Block Group geographies** for easy cross-comparison.
+
+```{r}
+head(mapcdatakeys::census_xw_bg10)
+```
+
+```mapcdatakeys::census_xw_bg20```
+
+This crosswalk provides 2020 & 2010 Block Group level data on Housing Units and Population in **2020 census Block Group geographies** for easy cross-comparison.
+
+```{r}
+head(mapcdatakeys::census_xw_bg20)
+```
+
+#### Census Tracts
+
+```mapcdatakeys::census_xw_ct10```
+
+This crosswalk provides 2010 & 2020 Census Tract level data on Housing Units and Population in **2010 census Census Tract** geographies for easy cross-comparison.
+
+```{r}
+head(mapcdatakeys::census_xw_ct10)
+```
+
+```mapcdatakeys::census_xw_ct20```
+
+This crosswalk provides 2020 & 2010 Block Group level data on Housing Units and Population in **2020 census Census Tract** for easy cross-comparison.
+
+```{r}
+head(mapcdatakeys::census_xw_ct20)
+```
+
+### Geographic Crosswalks
+
+#### 2010 Block Assigments
+
+```mapcdatakeys::geog_xw_2010```
+
+This crosswalk provides an easy way to categorize the 2010 blocks into various geographies
+
+```{r}
+head(mapcdatakeys::geog_xw_2010)
+```
+
+
+#### 2020 Block Assigments
+
+```mapcdatakeys::geog_xw_2020```
+
+This crosswalk provides an easy way to categorize the 2020 blocks into various geographies
+
+```{r}
+head(mapcdatakeys::geog_xw_2020)
+```
+

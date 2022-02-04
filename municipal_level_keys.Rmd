@@ -1,0 +1,92 @@
+---
+title: "Municipal Level Keys"
+author: "Aseem Deodhar"
+date: "2/3/2022"
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Municipal Level Keys
+
+These data keys represent annually/decadally changing Census FIPS codes, regional aggregation levels, RPA affiliations, MAPC subregions, Boston Globe Regions, MBTA and or RTA affiliation and information, and the different MAPC coalitions.
+
+## Available Data Keys:
+
+These data keys are available either as an entire set, or conveniently broken up into relevant groups.
+
+### The Entire Set
+
+```mapcdatakeys::all_muni_data_keys```
+
+These data keys represent annually/decadally changing Census FIPS codes, regional aggregation levels, RPA affiliations, MAPC subregions, Boston Globe Regions, MBTA and or RTA affiliation and information, and the different MAPC coalitions.
+
+```{r}
+head(mapcdatakeys::all_muni_data_keys)
+```
+
+### Census FIPS Codes
+
+```mapcdatakeys::census_muni_keys```
+
+These data keys represent annually/decadally changing Census FIPS codes.
+
+```{r}
+head(mapcdatakeys::census_muni_keys)
+```
+
+
+### MAPC Sub Regions and Coalition Affiliations
+
+```mapcdatakeys::mapc_data_keys```
+
+These data keys represent the MAPC affiliation for the 351 municipalities in Massachusetts. Other indicators such as MAPC Sub Regions, and coalitions such as the Metro Mayors' Coalition, and the North Shore Coalition are also indicated. A few are members of more than one Sub Region, and thus the 'subrg_alt' column indicates the secondary Sub Region in such cases.
+
+```{r}
+head(mapcdatakeys::mapc_data_keys)
+```
+
+### MAPC Community Types
+
+```mapcdatakeys::community_type```
+
+In order to support planning, analysis, and policy development, the Metropolitan Area Planning Council has created a classification system of municipalities in Massachusetts. MAPC has identified five basic community types across the state, four of which can be subdivided further to yield nine sub-types. The criteria used to define Community Types include land use and housing patterns, recent growth trends, and projected development patterns. The Community Type system can be used to understand how demographic, economic, land use, energy, and transportation trends affect the Commonwealth's diverse communities.
+
+```{r}
+head(mapcdatakeys::community_type)
+```
+
+
+### RPA Affiliations
+
+```mapcdatakeys::rpa_data_keys```
+
+These data keys represent the different RPA affiliations for the 351 municipalities in Massachusetts. A few are members of more than one RPA, and thus the 'rpa_alt' column indicates the secondary RPA in such cases.
+
+```{r}
+head(mapcdatakeys::rpa_data_keys)
+```
+
+### MBTA and RTA Affiliations
+
+```mapcdatakeys::mbta_data_keys```
+
+Most municipalities in Massachusetts are under a Regional Transit Authority, and/or the MBTA. Some are even under both the MBTA and a local RTA. As such, a 0/1 column is created for MBTA affiliation
+
+```{r}
+head(mapcdatakeys::mbta_data_keys)
+```
+
+### Census Data Vintage Crosswalk
+
+```mapcdatakeys::census_xw_mu```
+
+This crosswalk provides 2020 & 2010 Massachusetts Municipalities level data on Housing Units and Population for easy cross-comparison.
+
+```{r}
+head(mapcdatakeys::census_xw_mu)
+```
