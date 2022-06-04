@@ -1,0 +1,17 @@
+#' Function to call desired nested geographies for blocks for both 2010 and 2020 
+#'
+#' @param year Desired Census Year
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' 
+#' crosswalk_geog(year = 2010)
+crosswalk_geog <- function(year){
+  output <- ifelse(year == 2010, mapcdatakeys::geog_xw_2010,
+                   ifelse(geography == 2020, mapcdatakeys::geog_xw_2020,
+                                        "Please enter valid Census YEar: 2010, or 2020"))
+  output = tibble::tibble(output)
+  return(output)
+}

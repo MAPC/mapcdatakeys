@@ -1,0 +1,54 @@
+---
+title: "Crosswalk Functions"
+author: "Aseem Deodhar"
+date: "2/3/2022"
+output:
+  md_document:
+    variant: markdown_github
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Crosswalk Functions
+
+These two functions are used to call the two respective kinds of crosswalks available in this package - weighted, and nested crosswalks.
+
+### Weighted Crosswalks
+
+```mapcdatakeys::crosswalk_wtd(geography, vintage)```
+
+This is a function to call desired weighted crosswalk for population and housing unit values in desired census geographies and vintage.
+
+It requires two arguments:
+
+* **geography:** It can either be 'block', 'block group', 'tract', or 'county subdivision'
+
+* **vintage:** Currently available for either 2010 or 2020 census geographies. For municipalities, either vintage will provide the same data.
+
+##### Example: 2020 and 2010 values for housing units and population for 2010 Census Tract geographies (ct10_id)
+```{r}
+head(mapcdatakeys::crosswalk_wtd(geography = 'tract', vintage = 2010))
+```
+
+##### Example: 2020 and 2010 values for housing units and population for 2020 Census Block Group geographies (bg20_id)
+```{r}
+head(mapcdatakeys::crosswalk_wtd(geography = 'block group', vintage = 2020))
+```
+
+### Geographic Crosswalks
+
+```mapcdatakeys::crosswalk_wtd(geography, vintage)```
+
+This is a function to call desired nested crosswalk for census geographies and vintage.
+
+It requires one argument:
+
+* **year:** Currently available for either 2010 or 2020 census geographies.
+
+##### Example: 2020 block assignment files and nested geographies for block, block group, tract, municipality, county, and state for Massachusetts.
+```{r}
+head(mapcdatakeys::crosswalk_geog(year = 2020))
+```

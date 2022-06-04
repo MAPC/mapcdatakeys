@@ -1,0 +1,26 @@
+{
+    "id": "A6B8D0FF",
+    "path": "//Client/D$/Work/00_MAPC/mapcdatakeys/data-raw/muni_data_keys.R",
+    "project_path": "data-raw/muni_data_keys.R",
+    "type": "r_source",
+    "hash": "384395317",
+    "contents": "",
+    "dirty": false,
+    "created": 1641848841592.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "12,18",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1641850984,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1641850983040,
+    "read_only": false,
+    "read_only_alternatives": []
+}

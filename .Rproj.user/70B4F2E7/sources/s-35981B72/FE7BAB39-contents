@@ -1,0 +1,19 @@
+#' Function to call desired weighted crosswalk for 2020 values in 2010 census geographies 
+#'
+#' @param geography Desired census geography. Can be either 'block', 'block group', 'tract' or 'county subdivision'
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' 
+#' crosswalk(geography = 'block')
+crosswalk_wtd <- function(geography){
+  output <- ifelse(geography == "block", mapcdatakeys::census_xw_bl,
+                   ifelse(geography == 'block group', mapcdatakeys::census_xw_bg,
+                          ifelse(geography == 'tract', mapcdatakeys::census_xw_ct,
+                                 ifelse(geography == 'county subdivision', mapcdatakeys::census_xw_mu,
+                                        "Please enter valid geography name, one of: 'block', 'block group', 'tract' or 'county subdivision'"))))
+  output = tibble::tibble(output)
+  return(output)
+}

@@ -1,0 +1,26 @@
+{
+    "id": "9B10DA44",
+    "path": "//Client/D$/Work/00_MAPC/mapcdatakeys/R/geog_xw_2020.R",
+    "project_path": "R/geog_xw_2020.R",
+    "type": "r_source",
+    "hash": "1120296472",
+    "contents": "",
+    "dirty": false,
+    "created": 1641849721962.0,
+    "source_on_save": false,
+    "relative_order": 8,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "4,44",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1641850960,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1641850958219,
+    "read_only": false,
+    "read_only_alternatives": []
+}

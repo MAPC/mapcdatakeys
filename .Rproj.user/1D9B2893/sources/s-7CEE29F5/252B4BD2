@@ -1,0 +1,26 @@
+{
+    "id": "252B4BD2",
+    "path": "D:/Work/00_MAPC/mapcdatakeys/R/crosswalk_geog.R",
+    "project_path": "R/crosswalk_geog.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1642007199870.0,
+    "source_on_save": false,
+    "relative_order": 10,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "4,52",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1643931157,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1643931157100,
+    "read_only": false,
+    "read_only_alternatives": []
+}
