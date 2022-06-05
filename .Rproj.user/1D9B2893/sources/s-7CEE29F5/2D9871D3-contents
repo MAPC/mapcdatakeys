@@ -1,7 +1,7 @@
 Package: mapcdatakeys
 Type: Package
 Title: Provides Various Data Keys for Various Massachusetts Geographies
-Version: 1.1
+Version: 1.2
 Authors@R: 
     c(person(given = "MAPC",
            family = "Boston, MA",

@@ -1,6 +1,22 @@
 library(tidyverse)
 
-all_muni_data_keys <- read_csv("data-raw/muni_data_keys_new.csv") %>% arrange(muni_id)
+
+acs_name <- function(acs_year){
+  tidycensus::get_acs(geography = "county subdivision", table = "B01001", year = acs_year, state = 25) %>% 
+    filter(variable == "B01001_001", !str_detect(NAME, "County subdivisions not defined")) %>% 
+    mutate(NAME = gsub(pattern = " Town.*", "", NAME),
+           NAME = gsub(pattern = " city.*", "", NAME),
+           NAME = gsub(pattern = " town.*", "", NAME)) %>% 
+    select(GEOID, NAME) %>% rename(muni_name = NAME) %>% 
+    rename_with(., .cols = GEOID, .fn = function(x){paste0('cosub_5y', str_sub(as.character(acs_year), 
+                                                                               start = 3, end = 4))})}
+acs_name(acs_year = 2020)
+
+
+
+all_muni_data_keys <- read_csv("data-raw/muni_data_keys_new.csv") %>% 
+  left_join(acs_name(acs_year = 2020)) %>% 
+  select(muni_id, muni_name, cosub_5y20, starts_with("cosub_5y"), sort(tidyselect::peek_vars())) %>% arrange(muni_id)
 
 census_muni_keys <- all_muni_data_keys %>% select(muni_id, muni_name, starts_with("cosub"))
 

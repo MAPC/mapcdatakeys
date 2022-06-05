@@ -3,7 +3,7 @@
 #' This crosswalk provides 2020 & 2010 Block Group level data on Housing Units and Population in 2010 census Block Group 
 #' geographies for easy cross-comparison.
 #' 
-#' @format A tibble with 4985 rows and 10 variables:
+#' @format A tibble with 4,985 rows and 10 variables:
 #' \describe{
 #'   \item{bg10_id}{dbl 2010 Census Block Group FIPS Code}
 #'   \item{hu_2020}{dbl 2020 Housing Unit counts in 2010 Block Group geography} 

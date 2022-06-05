@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
+## ``` UPDATE: ACS 2016-20 Municipal GEOIDS added to mapcdatakeys::all_muni_data_keys() function ```
+
 This package contains two kinds of components:
 
 ### Data Keys

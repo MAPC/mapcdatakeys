@@ -6,6 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+## `UPDATE: ACS 2016-20 Municipal GEOIDS added to mapcdatakeys::all_muni_data_keys() function`
+
 This package contains two kinds of components:
 
 ### Data Keys
@@ -37,21 +39,20 @@ geographic levels in Massachusetts.
 
 ## Installation
 
-You can install the released version of `{mapcdatakeys}` with:
+You can install the released version of `mapcdatakeys` with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("MAPC/mapcdatakeys")
 ```
+
+## Examples for
+
 Load the package with this line:
 
 ``` r
 library(mapcdatakeys)
-```
 
-## Example
-
-``` r
 head(mapcdatakeys::mbta_data_keys)
 #> # A tibble: 6 x 9
 #>   muni_id muni_name rta_acr rta_name    mbta mbta14 mbta51 mbta_other mbta_cmtyp

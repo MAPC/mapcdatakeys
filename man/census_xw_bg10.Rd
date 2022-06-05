@@ -5,7 +5,7 @@
 \alias{census_xw_bg10}
 \title{Weighted crosswalk for 2020 & 2010 Census Block Group values in 2010 Block Group boundaries}
 \format{
-A tibble with 4985 rows and 10 variables:
+A tibble with 4,985 rows and 10 variables:
 \describe{
 \item{bg10_id}{dbl 2010 Census Block Group FIPS Code}
 \item{hu_2020}{dbl 2020 Housing Unit counts in 2010 Block Group geography}
