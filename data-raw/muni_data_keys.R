@@ -71,8 +71,6 @@ census_xw_ct20 <- read_csv("data-raw/ct20_2010xw.csv") %>%
          huch1020 = hu_chng,
          popch1020 = pop_chng)
 
-
-
 geog_xw_2010 <- read_csv("data-raw/2010_block_to_geo_crosswalk.csv")
 geog_xw_2020 <- read_csv("data-raw/2020_block_to_geo_crosswalk.csv")
 
