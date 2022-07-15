@@ -1,0 +1,55 @@
+Creating and Updating {mapcdatakeys} package
+
+2022-07-13
+
+Aseem Deodhar
+
+Introduction
+The {mapcdatakeys} package contains various municipal and census geography level keys, creating an official standardized format which is easily accessible without depending on static files. This document details out the process required for generating the annual update that municipal level GEOIDs *may* have with the release of the ACS every year.
+
+While general package development requires a lot of steps and checks, this document will only highlight the steps required for this annual update. Please refer to chapter 12 of the rstudio4edu book developed by Alison Hill and Desiree De Leon for a detailed description on developing and maintaining data packages for R: https://rstudio4edu.github.io/rstudio4edu-book/data-pkg.html
+
+Step 0: Required packages:
+
+Make sure the following packages are installed in your R environment before proceeding:
+
+#install.packages(c("usethis", "devtools", "roxygen2"))
+library(usethis)
+library(roxygen2)
+library(devtools)
+
+
+Step 1: Generate New Data
+The RScript file called muni_data_keys.R in the data-raw folder creates the various data-tables we have in our package. It has instructions on how to edit and run it to add the latest annual municipal geoid values.
+
+Run this entire file and follow instructions if you want to add or make any changes.
+
+Step 2: Check for Errors and Warnings:
+Run the following code in the Console:
+
+devtools::check(document=FALSE)
+
+This will take a bit of time. If there are no errors or warnings, proceed. You may get some notes, but you can ignore that. If there are any errors or warnings, check the message and rectify. Repeat until you get no error or warning messages.
+
+Step 3: Documentation
+
+Unless you're creating a new package, this step is not necessary.
+
+Step 4: Installation
+
+This step installs the package in your system.
+Run the following code in the Console:
+
+devtools::install()
+
+You can test it out by calling mapcdatakeys::all_muni_data_keys and check that the latest added column is present.
+
+Step 5: Github
+
+Push to the MAPC/mapcdatakeys Github repo!
+
+Step 6: Remote Installation
+To install this package on any system, run the following code in that system:
+
+# install.packages("remotes")
+remotes::install_github("rstudio4edu/testpackage")

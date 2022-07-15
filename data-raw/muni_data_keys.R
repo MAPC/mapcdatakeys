@@ -1,5 +1,13 @@
 library(tidyverse)
 
+# Use this function to get the 'latest' ACS Municipal GEOID (aka cosub id) for the given new year.
+# Append it as the years add up after the one already used in the definition of the *all_muni_data_keys*
+# essentially, newer values will be all left_joined on the muni_name variable such as:
+# left_join(acs_name(acs_year = 2020)) %>% 
+# left_join(acs_name(acs_year = 2021)) %>% 
+# left_join(acs_name(acs_year = 2022)) etc etc
+
+# Run this entire script before moving on to next steps as listed in the attached .txt file.
 
 acs_name <- function(acs_year){
   tidycensus::get_acs(geography = "county subdivision", table = "B01001", year = acs_year, state = 25) %>% 
@@ -10,14 +18,18 @@ acs_name <- function(acs_year){
     select(GEOID, NAME) %>% rename(muni_name = NAME) %>% 
     rename_with(., .cols = GEOID, .fn = function(x){paste0('cosub_5y', str_sub(as.character(acs_year), 
                                                                                start = 3, end = 4))})}
-acs_name(acs_year = 2020)
 
 
-
-all_muni_data_keys <- read_csv("data-raw/muni_data_keys_new.csv") %>% 
+# All Muni Data Keys ------------------------------------------------------
+# Parent Table
+all_muni_data_keys <- 
+  read_csv("data-raw/muni_data_keys_new.csv") %>% 
   left_join(acs_name(acs_year = 2020)) %>% 
-  select(muni_id, muni_name, cosub_5y20, starts_with("cosub_5y"), sort(tidyselect::peek_vars())) %>% arrange(muni_id)
+  #left_join(acs_name(acs_year = 2021)) %>% 
+  select(muni_id, muni_name, starts_with("cosub_5y"), sort(tidyselect::peek_vars())) %>% arrange(muni_id) %>% 
+  mutate(across(.fns = as.character))
 
+# Subset Tables which are collections of similarly linked variables
 census_muni_keys <- all_muni_data_keys %>% select(muni_id, muni_name, starts_with("cosub"))
 
 community_type <- all_muni_data_keys %>% select(muni_id, muni_name, cmtyp08_id, cmtyp08, cmsbt08_id, cmsbt08)
@@ -29,7 +41,7 @@ mapc_data_keys <- all_muni_data_keys %>% select(muni_id, muni_name, mapc, mmc, n
 mbta_data_keys <- all_muni_data_keys %>% select(muni_id, muni_name, rta_acr, rta_name, mbta, mbta14, mbta51, mbta_other, mbta_cmtyp)
 
 
-# 2010 Geographies
+# 2010 Geographies ----
 census_xw_bl10 <- read_csv("data-raw/bl10_2020xw.csv") %>% 
   select(!c(ct_area, weight)) %>% rename(bl10_id = geoid10) %>% 
   rename(huch1020p = hu_chng_p,
@@ -53,7 +65,7 @@ census_xw_mu <- read_csv("data-raw/muni_2020xw.csv") %>% select(!seq_id) %>%
          cosub_cn20 = geoid_2020,
          huch1020p = huch1020pc)
 
-# 2020 Geographies
+# 2020 Geographies ----
 census_xw_bl20 <- read_csv("data-raw/bl20_2010xw.csv") %>% 
   select(!c(ct_area, weight)) %>% rename(bl20_id = geoid20) %>% 
   rename(huch1020p = hu_chng_p,
@@ -71,10 +83,12 @@ census_xw_ct20 <- read_csv("data-raw/ct20_2010xw.csv") %>%
          huch1020 = hu_chng,
          popch1020 = pop_chng)
 
+# Geographic Crosswalks ----
 geog_xw_2010 <- read_csv("data-raw/2010_block_to_geo_crosswalk.csv")
 geog_xw_2020 <- read_csv("data-raw/2020_block_to_geo_crosswalk.csv")
 
 
+# If you define any new or additional tables, please add them to the list below.
 usethis::use_data(census_muni_keys, all_muni_data_keys, community_type, rpa_data_keys, mapc_data_keys, mbta_data_keys,
                   census_xw_bl10, census_xw_bg10, census_xw_ct10, 
                   census_xw_bl20, census_xw_bg20, census_xw_ct20, 
