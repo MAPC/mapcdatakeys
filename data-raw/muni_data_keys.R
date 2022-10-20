@@ -1,4 +1,11 @@
+#library(usethis)
+#library(roxygen2)
+#library(devtools)
+
 library(tidyverse)
+
+# if cloning repo to local machine, set wd to the mapcdatakeys folder
+setwd("C:/Users/MAPCStaff/Desktop/GIT_Kontiki/mapcdatakeys/")
 
 # Use this function to get the 'latest' ACS Municipal GEOID (aka cosub id) for the given new year.
 # Append it as the years add up after the one already used in the definition of the *all_muni_data_keys*
