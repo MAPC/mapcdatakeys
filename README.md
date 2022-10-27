@@ -66,7 +66,6 @@ head(mapcdatakeys::mbta_data_keys)
 ```
 
 Incredible help from Desiree De Leon and Alison Hill from their
-[rstudio4edu handbook, chapter
-12](https://rstudio4edu.github.io/rstudio4edu-book/data-pkg.html)
+[rstudio4edu handbook, chapter12](https://rstudio4edu.github.io/rstudio4edu-book/data-pkg.html)
 
 [test commmit LB 2022-10-27]
