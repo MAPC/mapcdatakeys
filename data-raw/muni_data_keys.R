@@ -1,11 +1,10 @@
-#library(usethis)
-#library(roxygen2)
-#library(devtools)
-
+library(usethis)
+library(roxygen2)
+library(devtools)
 library(tidyverse)
 
 # if cloning repo to local machine, set wd to the mapcdatakeys folder
-setwd("C:/Users/MAPCStaff/Desktop/GIT_Kontiki/mapcdatakeys/")
+# setwd("C:/Users/MAPCStaff/Desktop/GIT_Kontiki/mapcdatakeys/")
 
 # Use this function to get the 'latest' ACS Municipal GEOID (aka cosub id) for the given new year.
 # Append it as the years add up after the one already used in the definition of the *all_muni_data_keys*
@@ -17,7 +16,7 @@ setwd("C:/Users/MAPCStaff/Desktop/GIT_Kontiki/mapcdatakeys/")
 # Run this entire script before moving on to next steps as listed in the attached .txt file.
 
 acs_name <- function(acs_year){
-  tidycensus::get_acs(geography = "county subdivision", table = "B01001", year = acs_year, state = 25) %>% 
+  tidycensus::get_acs(geography = "county subdivision", table = "B01001", year = acs_year, state = 25, cache_table = T) %>% 
     filter(variable == "B01001_001", !str_detect(NAME, "County subdivisions not defined")) %>% 
     mutate(NAME = gsub(pattern = " Town.*", "", NAME),
            NAME = gsub(pattern = " city.*", "", NAME),
@@ -32,9 +31,12 @@ acs_name <- function(acs_year){
 all_muni_data_keys <- 
   read_csv("data-raw/muni_data_keys_new.csv") %>% 
   left_join(acs_name(acs_year = 2020)) %>% 
-  #left_join(acs_name(acs_year = 2021)) %>% 
+  left_join(acs_name(acs_year = 2021)) %>%
   select(muni_id, muni_name, starts_with("cosub_5y"), sort(tidyselect::peek_vars())) %>% arrange(muni_id) %>% 
-  mutate(across(.fns = as.character))
+  mutate(mpo = case_when(rpa_alt!="OCPC" | is.na(rpa_alt) ~ rpa_acr,
+                         rpa_alt=="OCPC" ~ "OCPC")) %>% 
+  relocate(mpo, .after = "rpa_alt") %>% 
+  mutate(across(.fns = as.character)) 
 
 # Subset Tables which are collections of similarly linked variables
 census_muni_keys <- all_muni_data_keys %>% select(muni_id, muni_name, starts_with("cosub"))
