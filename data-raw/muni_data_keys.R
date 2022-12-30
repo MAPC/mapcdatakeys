@@ -43,7 +43,7 @@ census_muni_keys <- all_muni_data_keys %>% select(muni_id, muni_name, starts_wit
 
 community_type <- all_muni_data_keys %>% select(muni_id, muni_name, cmtyp08_id, cmtyp08, cmsbt08_id, cmsbt08)
 
-rpa_data_keys <- all_muni_data_keys %>% select(muni_id, muni_name, rpa_id, rpa_acr, rpa_name, rpa_alt)
+rpa_data_keys <- all_muni_data_keys %>% select(muni_id, muni_name, rpa_id, rpa_acr, rpa_name, rpa_alt, mpo)
 
 mapc_data_keys <- all_muni_data_keys %>% select(muni_id, muni_name, mapc, mmc, nsc, subrg_id, subrg_nm, subrg_acr, subrg_alt)
 
