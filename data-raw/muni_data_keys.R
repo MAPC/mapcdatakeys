@@ -35,8 +35,9 @@ all_muni_data_keys <-
   select(muni_id, muni_name, starts_with("cosub_5y"), sort(tidyselect::peek_vars())) %>% arrange(muni_id) %>% 
   mutate(mpo = case_when(rpa_alt!="OCPC" | is.na(rpa_alt) ~ rpa_acr,
                          rpa_alt=="OCPC" ~ "OCPC")) %>% 
-  relocate(mpo, .after = "rpa_alt") %>% 
-  mutate(across(.fns = as.character)) 
+  relocate(mpo, .after = "rpa_alt") 
+# %>% 
+#   mutate(across(.fns = as.character)) 
 
 # Subset Tables which are collections of similarly linked variables
 census_muni_keys <- all_muni_data_keys %>% select(muni_id, muni_name, starts_with("cosub"))
