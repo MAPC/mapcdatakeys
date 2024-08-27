@@ -1,0 +1,449 @@
+neighborhood,muni,ma_muni,state
+Abington,Abington,TRUE,MA
+Acton,Acton,TRUE,MA
+Acushnet,Acushnet,TRUE,MA
+Adams,Adams,TRUE,MA
+Agawam,Agawam,TRUE,MA
+Allston,Boston,FALSE,MA
+Amesbury,Amesbury,TRUE,MA
+Amherst,Amherst,TRUE,MA
+Andover,Andover,TRUE,MA
+Arlington,Arlington,TRUE,MA
+Ashburnham,Ashburnham,TRUE,MA
+Ashby,Ashby,TRUE,MA
+Ashfield,Ashfield,TRUE,MA
+Ashland,Ashland,TRUE,MA
+Athol,Athol,TRUE,MA
+Attleboro,Attleboro,TRUE,MA
+Attleborough,Attleboro,TRUE,MA
+Auburn,Auburn,TRUE,MA
+Auburndale,Newton,FALSE,MA
+Avon,Avon,TRUE,MA
+Ayer,Ayer,TRUE,MA
+Baldwinville,Templeton,FALSE,MA
+Barnstable,Barnstable,TRUE,MA
+Becket,Becket,TRUE,MA
+Bedford,Bedford,TRUE,MA
+Belchertown,Belchertown,TRUE,MA
+Bellingham,Bellingham,TRUE,MA
+Belmont,Belmont,TRUE,MA
+Berkley,Berkley,TRUE,MA
+Bernardston,Bernardston,TRUE,MA
+Beverly,Beverly,TRUE,MA
+Billerica,Billerica,TRUE,MA
+Blackstone,Blackstone,TRUE,MA
+Blandford,Blandford,TRUE,MA
+Bolton,Bolton,TRUE,MA
+Boston,Boston,TRUE,MA
+Boxboro,Boxborough,TRUE,MA
+Boxborough,Boxborough,TRUE,MA
+Boxford,Boxford,TRUE,MA
+Boylston,Boylston,TRUE,MA
+Braintree,Braintree,TRUE,MA
+Brewster,Brewster,TRUE,MA
+Bridgewater,Bridgewater,TRUE,MA
+Brighton,Boston,FALSE,MA
+Brimfield,Brimfield,TRUE,MA
+Brockton,Brockton,TRUE,MA
+Brookfield,Brookfield,TRUE,MA
+Brookline,Brookline,TRUE,MA
+Burlington,Burlington,TRUE,MA
+Buzzards Bay,Bourne,FALSE,MA
+Byfield,Newbury,FALSE,MA
+Cambridge,Cambridge,TRUE,MA
+Canton,Canton,TRUE,MA
+Carlisle,Carlisle,TRUE,MA
+Carver,Carver,TRUE,MA
+Centerville,Barnstable,FALSE,MA
+Charlemont,Charlemont,TRUE,MA
+Charlestown,Boston,FALSE,MA
+Charlton,Charlton,TRUE,MA
+Chatham,Chatham,TRUE,MA
+Chelmsford,Chelmsford,TRUE,MA
+Chelsea,Chelsea,TRUE,MA
+Cherry Valley,Cherry Valley,FALSE,NY
+Cheshire,Cheshire,TRUE,MA
+Chesterfield,Chesterfield,TRUE,MA
+Chestnut Hill,Newton,TRUE,MA
+Chicopee,Chicopee,TRUE,MA
+Clinton,Clinton,TRUE,MA
+Cohasset,Cohasset,TRUE,MA
+Concord,Concord,TRUE,MA
+Cummington,Cummington,TRUE,MA
+Danvers,Danvers,TRUE,MA
+Dedham,Dedham,TRUE,MA
+Deerfield,Deerfield,TRUE,MA
+Dennis,Dennis,TRUE,MA
+Dennis Port,Dennis,FALSE,MA
+Devens,Devens,FALSE,MA
+Dorchester,Boston,TRUE,MA
+Douglas,Douglas,TRUE,MA
+Dover,Dover,TRUE,MA
+Dracut,Dracut,TRUE,MA
+Dudley,Dudley,TRUE,MA
+Dunstable,Dunstable,TRUE,MA
+Durham,Durham,FALSE,NH
+Duxbury,Duxbury,TRUE,MA
+East Bridgewater,East Bridgewater,TRUE,MA
+East Falmouth,Falmouth,FALSE,MA
+East Freetown,Freetown,FALSE,MA
+East Longmeadow,East Longmeadow,TRUE,MA
+East Otis,Otis,FALSE,MA
+East Sandwich,Sandwich,FALSE,MA
+East Taunton,Taunton,FALSE,MA
+East Walpole,Walpole,FALSE,MA
+East Wareham,Wareham,FALSE,MA
+East Weymouth,Weymouth,FALSE,MA
+Eastham,Eastham,TRUE,MA
+Easthampton,Easthampton,TRUE,MA
+Edgartown,Edgartown,TRUE,MA
+Erving,Erving,TRUE,MA
+Essex,Essex,TRUE,MA
+Everett,Everett,TRUE,MA
+Exeter,Exeter,FALSE,NH
+Fairhaven,Fairhaven,TRUE,MA
+Fall River,Fall River,TRUE,MA
+Falmouth,Falmouth,TRUE,MA
+Feeding Hills,Agawam,FALSE,MA
+Fisherville,Grafton,FALSE,MA
+Fiskdale,Sturbridge,FALSE,MA
+Fitchburg,Fitchburg,TRUE,MA
+Florence,North Hampton,FALSE,MA
+Florida,Florida,TRUE,MA
+Forestdale,Sandwich,FALSE,MA
+Foxboro,Foxborough,TRUE,MA
+Foxborough,Foxborough,TRUE,MA
+Framingham,Framingham,TRUE,MA
+Franklin,Franklin,TRUE,MA
+Gardner,Gardner,TRUE,MA
+Georgetown,Georgetown,TRUE,MA
+Gill,Gill,TRUE,MA
+Gloucester,Gloucester,TRUE,MA
+Goshen,Goshen,TRUE,MA
+Grafton,Grafton,TRUE,MA
+Granby,Granby,TRUE,MA
+Great Barrington,Great Barrington,TRUE,MA
+Greenfield,Greenfield,TRUE,MA
+Groton,Groton,TRUE,MA
+Groveland,Groveland,TRUE,MA
+Hadley,Hadley,TRUE,MA
+Hamilton,Hamilton,TRUE,MA
+Hampden,Hampden,TRUE,MA
+Hanover,Hanover,TRUE,MA
+Hanson,Hanson,TRUE,MA
+Harvard,Harvard,TRUE,MA
+Harwich,Harwich,TRUE,MA
+Hatfield,Hatfield,TRUE,MA
+Haverhill,Haverhill,TRUE,MA
+Haydenville,Williamsburg,FALSE,MA
+Head of Westport,Westport,FALSE,MA
+Heath,Heath,TRUE,MA
+Hingham,Hingham,TRUE,MA
+Hinsdale,Hinsdale,TRUE,MA
+Holbrook,Holbrook,TRUE,MA
+Holden,Holden,TRUE,MA
+Holliston,Holliston,TRUE,MA
+Holyoke,Holyoke,TRUE,MA
+Hopedale,Hopedale,TRUE,MA
+Hopkinton,Hopkinton,TRUE,MA
+Hubbardston,Hubbardston,TRUE,MA
+Hudson,Hudson,TRUE,MA
+Hull,Hull,TRUE,MA
+Huntington,Huntington,TRUE,MA
+Hyannis,Barnstable,FALSE,MA
+Hyde Park,Boston,TRUE,MA
+Indian Orchard,Springfield,FALSE,MA
+Ipswich,Ipswich,TRUE,MA
+Jamaica Plain,Boston,FALSE,MA
+Jefferson,Jefferson,FALSE,NH
+Kingston,Kingston,TRUE,MA
+Lakeville,Lakeville,TRUE,MA
+Lancaster,Lancaster,TRUE,MA
+Lanesborough,Lanesborough,TRUE,MA
+Lawrence,Lawrence,TRUE,MA
+Lee,Lee,TRUE,MA
+Leicester,Leicester,TRUE,MA
+Lenox,Lenox,TRUE,MA
+Leominster,Leominster,TRUE,MA
+Leverett,Leverett,TRUE,MA
+Lexington,Lexington,TRUE,MA
+Lincoln,Lincoln,TRUE,MA
+Littleton,Littleton,TRUE,MA
+Longmeadow,Longmeadow,TRUE,MA
+Lowell,Lowell,TRUE,MA
+Ludlow,Ludlow,TRUE,MA
+Lunenburg,Lunenburg,TRUE,MA
+Lynn,Lynn,TRUE,MA
+Lynnfield,Lynnfield,TRUE,MA
+Malden,Malden,TRUE,MA
+Manchester-by-the-Sea,Manchester-by-the-Sea,TRUE,MA
+Mansfield,Mansfield,TRUE,MA
+Marblehead,Marblehead,TRUE,MA
+Marion,Marion,TRUE,MA
+Marlborough,Marlborough,TRUE,MA
+Marshfield,Marshfield,TRUE,MA
+Marstons Mills,Barnstable,FALSE,MA
+Mashpee,Mashpee,TRUE,MA
+Mattapan,Boston,FALSE,MA
+Mattapoisett,Mattapoisett,TRUE,MA
+Maynard,Maynard,TRUE,MA
+Medfield,Medfield,TRUE,MA
+Medford,Medford,TRUE,MA
+Medway,Medway,TRUE,MA
+Melrose,Melrose,TRUE,MA
+Mendon,Mendon,TRUE,MA
+Merrimac,Merrimac,TRUE,MA
+Methuen,Methuen,TRUE,MA
+Middleboro,Middleborough,FALSE,MA
+Middleton,Middleton,TRUE,MA
+Milford,Milford,TRUE,MA
+Mill River,Wakefield,FALSE,MA
+Millbury,Millbury,TRUE,MA
+Millis,Millis,TRUE,MA
+Millville,Millville,TRUE,MA
+Milton,Milton,TRUE,MA
+Monson,Monson,TRUE,MA
+Montague,Montague,TRUE,MA
+Monterey,Monterey,TRUE,MA
+Alford,Alford,TRUE,MA
+Aquinnah,Aquinnah,TRUE,MA
+Barre,Barre,TRUE,MA
+Berlin,Berlin,TRUE,MA
+Bourne,Bourne,TRUE,MA
+Buckland,Buckland,TRUE,MA
+Chester,Chester,TRUE,MA
+Chilmark,Chilmark,TRUE,MA
+Clarksburg,Clarksburg,TRUE,MA
+Colrain,Colrain,TRUE,MA
+Conway,Conway,TRUE,MA
+Dalton,Dalton,TRUE,MA
+Dartmouth,Dartmouth,TRUE,MA
+Dighton,Dighton,TRUE,MA
+East Brookfield,East Brookfield,TRUE,MA
+Easton,Easton,TRUE,MA
+Egremont,Egremont,TRUE,MA
+Freetown,Freetown,TRUE,MA
+Gosnold,Gosnold,TRUE,MA
+Granville,Granville,TRUE,MA
+Halifax,Halifax,TRUE,MA
+Hancock,Hancock,TRUE,MA
+Hardwick,Hardwick,TRUE,MA
+Hawley,Hawley,TRUE,MA
+Holland,Holland,TRUE,MA
+Leyden,Leyden,TRUE,MA
+Middleborough,Middleborough,TRUE,MA
+Middlefield,Middlefield,TRUE,MA
+Monroe,Monroe,TRUE,MA
+Montgomery,Montgomery,TRUE,MA
+Mount Washington,Mount Washington,TRUE,MA
+New Ashford,New Ashford,TRUE,MA
+New Marlborough,New Marlborough,TRUE,MA
+Newbury,Newbury,TRUE,MA
+North Attleborough,North Attleborough,TRUE,MA
+Oakham,Oakham,TRUE,MA
+Pelham,Pelham,TRUE,MA
+Peru,Peru,TRUE,MA
+Phillipston,Phillipston,TRUE,MA
+Plympton,Plympton,TRUE,MA
+Richmond,Richmond,TRUE,MA
+Rowe,Rowe,TRUE,MA
+Royalston,Royalston,TRUE,MA
+Shelburne,Shelburne,TRUE,MA
+Stockbridge,Stockbridge,TRUE,MA
+Tisbury,Tisbury,TRUE,MA
+Tolland,Tolland,TRUE,MA
+Tyringham,Tyringham,TRUE,MA
+Wales,Wales,TRUE,MA
+Washington,Washington,TRUE,MA
+Westhampton,Westhampton,TRUE,MA
+Westport,Westport,TRUE,MA
+Whately,Whately,TRUE,MA
+Williamsburg,Williamsburg,TRUE,MA
+Worthington,Worthington,TRUE,MA
+Yarmouth,Yarmouth,TRUE,MA
+Nahant,Nahant,TRUE,MA
+Nantasket Beach,Hull,FALSE,MA
+Nantucket,Nantucket,TRUE,MA
+Natick,Natick,TRUE,MA
+Needham,Needham,TRUE,MA
+New Bedford,New Bedford,TRUE,MA
+New Braintree,New Braintree,TRUE,MA
+New Salem,New Salem,TRUE,MA
+Newbury Old Town,Newbury,FALSE,MA
+Newburyport,Newburyport,TRUE,MA
+Newton,Newton,TRUE,MA
+Newton Center,Newton,FALSE,MA
+Newton Highlands,Newton,FALSE,MA
+Newtonville,Newton,FALSE,MA
+Norfolk,Norfolk,TRUE,MA
+North Adams,North Adams,TRUE,MA
+North Andover,North Andover,TRUE,MA
+North Attleboro,North Attleborough,FALSE,MA
+North Billerica,Billerica,FALSE,MA
+North Brookfield,North Brookfield,TRUE,MA
+North Chatham,Chatham,FALSE,MA
+North Chelmsford,Chelmsford,FALSE,MA
+North Dartmouth,Dartmouth,FALSE,MA
+North Easton,Easton,FALSE,MA
+North Falmouth,Falmouth,FALSE,MA
+North Grafton,Grafton,FALSE,MA
+North Hampton,North Hampton,FALSE,NH
+North Oxford,Oxford,FALSE,MA
+North Reading,North Reading,TRUE,MA
+North Weymouth,Weymouth,FALSE,MA
+Northampton,Northampton,TRUE,MA
+Northborough,Northborough,TRUE,MA
+Northbridge,Northbridge,TRUE,MA
+Northfield,Northfield,TRUE,MA
+Norton,Norton,TRUE,MA
+Norwell,Norwell,TRUE,MA
+Norwood,Norwood,TRUE,MA
+Oak Bluffs,Oak Bluffs,TRUE,MA
+Onset,Wareham,FALSE,MA
+Orange,Orange,TRUE,MA
+Orleans,Orleans,TRUE,MA
+Osterville,Barnstable,FALSE,MA
+Otis,Otis,TRUE,MA
+Oxford,Oxford,TRUE,MA
+Palmer,Palmer,TRUE,MA
+Paxton,Paxton,TRUE,MA
+Peabody,Peabody,TRUE,MA
+Pembroke,Pembroke,TRUE,MA
+Pepperell,Pepperell,TRUE,MA
+Petersham,Petersham,TRUE,MA
+Pittsfield,Pittsfield,TRUE,MA
+Plainfield,Plainfield,TRUE,MA
+Plainville,Plainville,TRUE,MA
+Plymouth,Plymouth,TRUE,MA
+Portsmouth,Portsmouth,FALSE,NH
+Princeton,Princeton,TRUE,MA
+Provincetown,Provincetown,TRUE,MA
+Quincy,Quincy,TRUE,MA
+Randolph,Randolph,TRUE,MA
+Raynham,Raynham,TRUE,MA
+Reading,Reading,TRUE,MA
+Rehoboth,Rehoboth,TRUE,MA
+Revere,Revere,TRUE,MA
+Rochester,Rochester,TRUE,MA
+Rockland,Rockland,TRUE,MA
+Rockport,Rockport,TRUE,MA
+Roslindale,Boston,TRUE,MA
+Rowley,Rowley,TRUE,MA
+Roxbury,Boston,TRUE,MA
+Roxbury Crossing,Boston,FALSE,MA
+Russell,Russell,TRUE,MA
+Rutland,Rutland,TRUE,MA
+Sagamore,Bourne,FALSE,MA
+Salem,Salem,TRUE,MA
+Salisbury,Salisbury,TRUE,MA
+Sandisfield,Sandisfield,TRUE,MA
+Sandwich,Sandwich,TRUE,MA
+Saugus,Saugus,TRUE,MA
+Savoy,Savoy,TRUE,MA
+Scituate,Scituate,TRUE,MA
+Seabrook,Seabrook,FALSE,NH
+Seekonk,Seekonk,TRUE,MA
+Sharon,Sharon,TRUE,MA
+Sheffield,Sheffield,TRUE,MA
+Shelburne Falls,Shelburne Falls,FALSE,MA
+Sherborn,Sherborn,TRUE,MA
+Shirley,Shirley,TRUE,MA
+Shrewsbury,Shrewsbury,TRUE,MA
+Shutesbury,Shutesbury,TRUE,MA
+Somerset,Somerset,TRUE,MA
+Somersworth,Somersworth,FALSE,NH
+Somerville,Somerville,TRUE,MA
+South Boston,Boston,TRUE,MA
+South Chatham,Chatham,FALSE,MA
+South Dartmouth,Dartmouth,FALSE,MA
+South Deerfield,Deerfield,FALSE,MA
+South Dennis,Dennis,FALSE,MA
+South Easton,Easton,FALSE,MA
+South Egremont,Egremont,FALSE,MA
+South Hadley,South Hadley,TRUE,MA
+South Hamilton,Hamilton,FALSE,MA
+South Weymouth,Weymouth,FALSE,MA
+South Yarmouth,Yarmouth,FALSE,MA
+Southampton,Southampton,TRUE,MA
+Southborough,Southborough,TRUE,MA
+Southbridge,Southbridge,TRUE,MA
+Southfield,New Marlborough,FALSE,MA
+Southwick,Southwick,TRUE,MA
+Spencer,Spencer,TRUE,MA
+Springfield,Springfield,TRUE,MA
+Sterling,Sterling,TRUE,MA
+Stoneham,Stoneham,TRUE,MA
+Stoughton,Stoughton,TRUE,MA
+Stow,Stow,TRUE,MA
+Sturbridge,Sturbridge,TRUE,MA
+Sudbury,Sudbury,TRUE,MA
+Sunderland,Sunderland,TRUE,MA
+Sutton,Sutton,TRUE,MA
+Swampscott,Swampscott,TRUE,MA
+Swansea,Swansea,TRUE,MA
+Taunton,Taunton,TRUE,MA
+Templeton,Templeton,TRUE,MA
+Tewksbury,Tewksbury,TRUE,MA
+Topsfield,Topsfield,TRUE,MA
+Townsend,Townsend,TRUE,MA
+Truro,Truro,TRUE,MA
+Turners Falls,Montague,FALSE,MA
+Tyngsboro,Tyngsborough,TRUE,MA
+Upton,Upton,TRUE,MA
+Uxbridge,Uxbridge,TRUE,MA
+Vineyard Haven,Tisbury,FALSE,MA
+Waban,Newton,FALSE,MA
+Wakefield,Wakefield,TRUE,MA
+Walpole,Walpole,TRUE,MA
+Waltham,Waltham,TRUE,MA
+Ware,Ware,TRUE,MA
+Wareham,Wareham,TRUE,MA
+Warren,Warren,TRUE,MA
+Warwick,Warwick,TRUE,MA
+Watertown,Watertown,TRUE,MA
+Wayland,Wayland,TRUE,MA
+Webster,Webster,TRUE,MA
+Wellesley,Wellesley,TRUE,MA
+Wellesley Hills,Wellesley,FALSE,MA
+Wellfleet,Wellfleet,TRUE,MA
+Wendell,Wendell,TRUE,MA
+Wenham,Wenham,TRUE,MA
+West Barnstable,Barnstable,FALSE,MA
+West Boylston,West Boylston,TRUE,MA
+West Bridgewater,West Bridgewater,TRUE,MA
+West Brookfield,West Brookfield,TRUE,MA
+West Dennis,Dennis,FALSE,MA
+West Harwich,Harwich,FALSE,MA
+West Hatfield,Hatfield,FALSE,MA
+West Newbury,West Newbury,TRUE,MA
+West Newton,Newton,FALSE,MA
+West Roxbury,Boston,FALSE,MA
+West Springfield,West Springfield,TRUE,MA
+West Stockbridge,West Stockbridge,TRUE,MA
+West Tisbury,West Tisbury,TRUE,MA
+West Townsend,Townsend,FALSE,MA
+West Wareham,Wareham,TRUE,MA
+West Warren,Warren,FALSE,MA
+West Yarmouth,Yarmouth,FALSE,MA
+Westborough,Westborough,TRUE,MA
+Westfield,Westfield,TRUE,MA
+Westford,Westford,TRUE,MA
+Westminster,Westminster,TRUE,MA
+Weston,Weston,TRUE,MA
+Westwood,Westwood,TRUE,MA
+Weymouth,Weymouth,TRUE,MA
+Whitinsville,Northbridge,FALSE,MA
+Whitman,Whitman,TRUE,MA
+Wilbraham,Wilbraham,TRUE,MA
+Williamstown,Williamstown,TRUE,MA
+Wilmington,Wilmington,TRUE,MA
+Winchendon,Winchendon,TRUE,MA
+Winchester,Winchester,TRUE,MA
+Windsor,Windsor,TRUE,MA
+Winthrop,Winthrop,TRUE,MA
+Woburn,Woburn,TRUE,MA
+Woods Hole,Falmouth,FALSE,MA
+Worcester,Worcester,TRUE,MA
+Worthington Center,Worthington,FALSE,MA
+Wrentham,Wrentham,TRUE,MA
+Yarmouth Port,Yarmouth,FALSE,MA
