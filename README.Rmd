@@ -18,7 +18,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-## ``` UPDATE: ACS 2016-20 Municipal GEOIDS added to mapcdatakeys::all_muni_data_keys() function ```
+## ``` UPDATE: ACS 2018-22 Municipal GEOIDS added to mapcdatakeys::all_muni_data_keys() function ```
+## ``` UPDATE: Added MPO ID, Name, and Acronym variables to mapcdatakeys::all_muni_data_keys() function```
+## ``` UPDATE: Added two NEW tables: nbhd_muni_xw and zip_muni_xw ```
 
 This package contains two kinds of components:
 
