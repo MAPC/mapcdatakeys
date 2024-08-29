@@ -4,6 +4,12 @@ Creating and Updating {mapcdatakeys} package
 
 Aseem Deodhar
 
+Update -  
+
+2024-08-28
+
+Brandon Stanaway
+
 Introduction
 The {mapcdatakeys} package contains various municipal and census geography level keys, creating an official standardized format which is easily accessible without depending on static files. This document details out the process required for generating the annual update that municipal level GEOIDs *may* have with the release of the ACS every year.
 
@@ -21,6 +27,10 @@ library(devtools)
 
 Step 1: Generate New Data
 The RScript file called muni_data_keys.R in the data-raw folder creates the various data-tables we have in our package. It has instructions on how to edit and run it to add the latest annual municipal geoid values.
+
+Please add the most recent year to the list of years on line 16 to update the "cosub_id" column in the 
+
+If any additional tables are added, please add them to the list of tables to be published on line 179.
 
 Run this entire file and follow instructions if you want to add or make any changes.
 
