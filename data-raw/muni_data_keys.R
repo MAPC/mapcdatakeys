@@ -1,7 +1,10 @@
 library(usethis)
 library(roxygen2)
 library(devtools)
+library(data.table)
+library(tidycensus)
 library(tidyverse)
+library(sf)
 
 # if cloning repo to local machine, set wd to the mapcdatakeys folder
 # setwd("C:/Users/MAPCStaff/Desktop/GIT_Kontiki/mapcdatakeys/")
@@ -174,12 +177,127 @@ zip_muni_xw <- read_csv("data-raw/zip_muni_xw.csv") |>
     muni_name = muni
   )
 
+# Functions that load spatial objects of common boundaries
+
+muni_sf <- function(yr) {
+  
+  if(yr==2010){var <- 'H001001'}
+  if(yr==2020){var <- 'H1_001N'}
+  
+  id <- paste0('cosub_cn',substr(yr,3,4))
+  
+  sfm <-
+    get_decennial(
+      year = yr,
+      state = 'MA',
+      geography = 'county subdivision',
+      variables = var,
+      geometry = T
+    ) |> 
+    mutate(GEOID = as.numeric(GEOID)) |> 
+    select(GEOID, geometry) |> 
+    setNames(c(id,'geometry'))
+  
+  ms <- mapcdatakeys::all_muni_data_keys |> 
+    select(muni_id, muni_name, id) |> 
+    left_join(sfm, by = id) 
+  
+  return(ms)
+}
+
+block_sf <- function(yr) {
+  
+  if(yr==2010){var <- 'H001001'}
+  if(yr==2020){var <- 'H1_001N'}
+  
+  id <- paste0('bl',substr(yr,3,4),'_id')
+  
+  sf <-
+    get_decennial(
+      year = yr,
+      state = 'MA',
+      geography = 'block',
+      variables = var,
+      geometry = T
+    ) |> 
+    mutate(GEOID = as.numeric(GEOID)) |> 
+    select(GEOID, geometry) |> 
+    setNames(c(id,'geometry'))
+  
+  xw <- paste0('geog_xw_',yr)
+  
+  blk <- get(xw) |> 
+    select(-county,-statefp,-countyfp,-cousubfp) |> 
+    left_join(sf, by = id) 
+  
+  return(blk)
+}
+
+blockgroup_sf <- function(yr) {
+  
+  if(yr==2010){var <- 'H001001'}
+  if(yr==2020){var <- 'H1_001N'}
+  
+  id <- paste0('bg',substr(yr,3,4),'_id')
+  
+  sf <-
+    get_decennial(
+      year = yr,
+      state = 'MA',
+      geography = 'block group',
+      variables = var,
+      geometry = T
+    ) |> 
+    mutate(GEOID = as.numeric(GEOID)) |> 
+    select(GEOID, geometry) |> 
+    setNames(c(id,'geometry'))
+  
+  xw <- paste0('geog_xw_',yr)
+  
+  bg <- get(xw) |> 
+    select(-county,-statefp,-countyfp,-cousubfp) |> 
+    left_join(sf, by = id) 
+  
+  return(bg)
+}
+
+tract_sf <- function(yr) {
+  
+  if(yr==2010){var <- 'H001001'}
+  if(yr==2020){var <- 'H1_001N'}
+  
+  id <- paste0('ct',substr(yr,3,4),'_id')
+  
+  sf <-
+    get_decennial(
+      year = yr,
+      state = 'MA',
+      geography = 'tract',
+      variables = var,
+      geometry = T
+    ) |> 
+    mutate(GEOID = as.numeric(GEOID)) |> 
+    select(GEOID, geometry) |> 
+    setNames(c(id,'geometry'))
+  
+  xw <- paste0('geog_xw_',yr)
+  
+  ct <- get(xw) |> 
+    select(-county,-statefp,-countyfp,-cousubfp) |> 
+    left_join(sf, by = id) 
+  
+  return(ct)
+}
+
+ej_sf <- readRDS('data-raw/environmental_justice_blockgroups_2020_shapefile.rds')
+
+
 # ~~~ USER INPUT REQUIRED ~~~~ #
 # If you define any new or additional tables, please add them to the list below.
 usethis::use_data(census_muni_keys, all_muni_data_keys, community_type, rpa_data_keys,
                   mapc_data_keys, mbta_data_keys, census_xw_bl10, census_xw_bg10,
                   census_xw_ct10, census_xw_bl20, census_xw_bg20, census_xw_ct20, 
-                  geog_xw_2010, geog_xw_2020, census_xw_mu, nbhd_muni_xw, zip_muni_xw,
+                  geog_xw_2010, geog_xw_2020, census_xw_mu, nbhd_muni_xw, zip_muni_xw, ej_sf,
                   overwrite = TRUE, internal = FALSE)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
