@@ -1,10 +1,18 @@
+#===============================================================================
+# 0.0 Environment Setup
+# 0.1 Load Relevant Libraries
 library(usethis)
 library(roxygen2)
 library(devtools)
 library(data.table)
 library(tidycensus)
 library(tidyverse)
+<<<<<<< Updated upstream
 library(sf)
+=======
+options(scipen = 999)
+set.seed(351)
+>>>>>>> Stashed changes
 
 # if cloning repo to local machine, set wd to the mapcdatakeys folder
 # setwd("C:/Users/MAPCStaff/Desktop/GIT_Kontiki/mapcdatakeys/")
@@ -13,44 +21,59 @@ library(sf)
 
 # Run this entire script before moving on to next steps as listed in the attached .txt file.
 
+# 0.2 User Input for ACS Years
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 # ~~~ USER INPUT REQUIRED ~~~ #
-
 # Add last year of ACS data you wish to update into the "years" list below
-years <- c(2020,2021,2022)
+years <- c(2020,2021,2022,2023)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
-
+# 0.3 Create function which reads in and cleans each new year of ACS data
 acs_name <- function(acs_year){
-  tidycensus::get_acs(geography = "county subdivision", table = "B01001", year = acs_year, state = 25, cache_table = T) %>% 
-    filter(variable == "B01001_001", !str_detect(NAME, "County subdivisions not defined")) %>% 
-    mutate(NAME = gsub(pattern = " Town.*", "", NAME),
-           NAME = gsub(pattern = " city.*", "", NAME),
-           NAME = gsub(pattern = " town.*", "", NAME)) %>% 
-    select(GEOID, NAME) %>% rename(muni_name = NAME) %>% 
-    rename_with(., .cols = GEOID, .fn = function(x){paste0('cosub_5y', str_sub(as.character(acs_year), start = 3, end = 4))})}
+  tidycensus::get_acs(
+    geography = "county subdivision",
+    table = "B01001",
+    year = acs_year,
+    state = 25,
+    cache_table = T
+  )  |>  
+    filter(variable == "B01001_001", !str_detect(NAME, "County subdivisions not defined")) |> 
+    mutate(
+      NAME = gsub(pattern = " Town.*", "", NAME),
+      NAME = gsub(pattern = " city.*", "", NAME),
+      NAME = gsub(pattern = " town.*", "", NAME)
+    ) |>  
+    select(GEOID, NAME) |> 
+    rename(muni_name = NAME) %>%  
+    rename_with(., .cols = GEOID, .fn = function(x){paste0('cosub_5y', str_sub(as.character(acs_year), start = 3, end = 4))})
+  }
 
-#Loads base muni_data_keys file
+#===============================================================================
+# 1.0 All Muni Data Keys ------------------------------------------------------
+# 1.1 Loads base muni_data_keys file
 muni_data_keys_new <- read_csv("data-raw/muni_data_keys_new.csv")
 
-#Loop which appends the updated cosub_id to the base muni data keys file
+# 1.2 Loop which reads each new year of ACS data. 
+# Then appends the updated cosub_id to the base muni data keys file
 for (i in years){
-  
+  # Load current year ACS table
   tmp <- acs_name(acs_year = i)
   
+  # Join current year ACS to 
   muni_data_keys_new <- left_join(
     muni_data_keys_new,
     tmp,
     by = c("muni_name")
   )
   
+  # Remove tmp file
   rm(tmp)
   
+  # Print when finished with current year
   print(paste0("Finished updating ACS Year Ending in ", i))
-  
 }
 
-# All Muni Data Keys ------------------------------------------------------
-# Parent Table
+# 1.3 Clean Parent Table and MPO fields
 all_muni_data_keys <- muni_data_keys_new |> 
   select(muni_id, muni_name, starts_with("cosub_5y"), sort(tidyselect::peek_vars())) |>
   arrange(muni_id) |> 
@@ -77,68 +100,93 @@ all_muni_data_keys <- muni_data_keys_new |>
       muni_name == "Duxbury" ~ 399,
       .default = rpa_id
     )
-   ) |>  
+   ) |>
   select(
-    -rpa_alt
-  ) |>  
+    -c(rpa_alt)
+  ) |> 
   relocate(mpo, mpo_name, mpo_id, .after = rpa_name) 
-# %>% 
-#   mutate(across(.fns = as.character)) 
+
+# Pull muni_id indicator to add to other muni-level tables
+muni_id.tbl <- all_muni_data_keys |> select(muni_id, muni_name)
 
 # Subset Tables which are collections of similarly linked variables
-census_muni_keys <- all_muni_data_keys %>% select(muni_id, muni_name, starts_with("cosub"))
+census_muni_keys <- all_muni_data_keys |>  select(muni_id, muni_name, starts_with("cosub"))
 
-community_type <- all_muni_data_keys %>% select(muni_id, muni_name, cmtyp08_id, cmtyp08, cmsbt08_id, cmsbt08)
+community_type <- all_muni_data_keys |>  select(muni_id, muni_name, cmtyp08_id, cmtyp08, cmsbt08_id, cmsbt08)
 
-rpa_data_keys <- all_muni_data_keys %>% select(muni_id, muni_name, rpa_id, rpa_acr, rpa_name, mpo, mpo_id, mpo_name)
+rpa_data_keys <- all_muni_data_keys |>  select(muni_id, muni_name, rpa_id, rpa_acr, rpa_name, mpo, mpo_id, mpo_name)
 
-mapc_data_keys <- all_muni_data_keys %>% select(muni_id, muni_name, mapc, mmc, nsc, subrg_id, subrg_nm, subrg_acr, subrg_alt)
+mapc_data_keys <- all_muni_data_keys |> select(muni_id, muni_name, mapc, mmc, nsc, subrg_id, subrg_nm, subrg_acr, subrg_alt)
 
-mbta_data_keys <- all_muni_data_keys %>% select(muni_id, muni_name, rta_acr, rta_name, mbta, mbta14, mbta51, mbta_other, mbta_cmtyp)
+mbta_data_keys <- all_muni_data_keys |>  select(muni_id, muni_name, rta_acr, rta_name, mbta, mbta14, mbta51, mbta_other, mbta_cmtyp)
 
+# 2010 Geography Crosswalks ----
+# Source: IPUMS
+# 2010 Blocks to 2020 Block Crosswalk
+census_xw_bl10 <- read_csv("data-raw/bl10_2020xw.csv") |> 
+  select(!c(ct_area, weight)) |> 
+  dplyr::rename(
+    bl10_id = geoid10,
+    huch1020p = hu_chng_p,
+    popch1020p = pop_chng_p,
+    huch1020 = hu_chng,
+    popch1020 = pop_chng
+  )
+# 2010 Block Group to 2020 Block Group
+census_xw_bg10 <- read_csv("data-raw/bg10_2020xw.csv") |>  
+  dplyr::rename(
+    huch1020p = hu_chng_p,
+    popch1020p = pop_chng_p,
+    huch1020 = hu_chng,
+    popch1020 = pop_chng
+  )
+# 2010 county to 2020 county
+census_xw_ct10 <- read_csv("data-raw/ct10_2020xw.csv") |>  
+  dplyr::rename(
+    huch1020p = hu_chng_p,
+    popch1020p = pop_chng_p,
+    huch1020 = hu_chng,
+    popch1020 = pop_chng
+  )
+# 2010 county to 2020 county
+census_xw_mu <- read_csv("data-raw/muni_2020xw.csv") |> 
+  select(!seq_id) |>  
+  janitor::clean_names() |> 
+  dplyr::rename(
+    muni_name = basename,
+    cosub_cn10 = geoid_2010,
+    cosub_cn20 = geoid_2020,
+    huch1020p = huch1020pc
+  )
 
-# 2010 Geographies ----
-#From IPUMS
-census_xw_bl10 <- read_csv("data-raw/bl10_2020xw.csv") %>% 
-  select(!c(ct_area, weight)) %>% rename(bl10_id = geoid10) %>% 
-  rename(huch1020p = hu_chng_p,
-         popch1020p = pop_chng_p,
-         huch1020 = hu_chng,
-         popch1020 = pop_chng)
-census_xw_bg10 <- read_csv("data-raw/bg10_2020xw.csv") %>% 
-  rename(huch1020p = hu_chng_p,
-         popch1020p = pop_chng_p,
-         huch1020 = hu_chng,
-         popch1020 = pop_chng)
-census_xw_ct10 <- read_csv("data-raw/ct10_2020xw.csv") %>% 
-  rename(huch1020p = hu_chng_p,
-         popch1020p = pop_chng_p,
-         huch1020 = hu_chng,
-         popch1020 = pop_chng)
-census_xw_mu <- read_csv("data-raw/muni_2020xw.csv") %>% select(!seq_id) %>% 
-  janitor::clean_names() %>% 
-  rename(muni_name = basename,
-         cosub_cn10 = geoid_2010,
-         cosub_cn20 = geoid_2020,
-         huch1020p = huch1020pc)
-
-# 2020 Geographies ----
-census_xw_bl20 <- read_csv("data-raw/bl20_2010xw.csv") %>% 
-  select(!c(ct_area, weight)) %>% rename(bl20_id = geoid20) %>% 
-  rename(huch1020p = hu_chng_p,
-         popch1020p = pop_chng_p,
-         huch1020 = hu_chng,
-         popch1020 = pop_chng)
-census_xw_bg20 <- read_csv("data-raw/bg20_2010xw.csv") %>% 
-  rename(huch1020p = hu_chng_p,
-         popch1020p = pop_chng_p,
-         huch1020 = hu_chng,
-         popch1020 = pop_chng)
-census_xw_ct20 <- read_csv("data-raw/ct20_2010xw.csv") %>% 
-  rename(huch1020p = hu_chng_p,
-         popch1020p = pop_chng_p,
-         huch1020 = hu_chng,
-         popch1020 = pop_chng)
+# 2020 Geography Crosswalks ----
+# Source: IPUMS
+#
+census_xw_bl20 <- read_csv("data-raw/bl20_2010xw.csv") |>  
+  select(!c(ct_area, weight)) |> 
+  dplyr::rename(
+    bl20_id = geoid20,
+    huch1020p = hu_chng_p,
+    popch1020p = pop_chng_p,
+    huch1020 = hu_chng,
+    popch1020 = pop_chng
+  )
+#
+census_xw_bg20 <- read_csv("data-raw/bg20_2010xw.csv") |>  
+  rename(
+    huch1020p = hu_chng_p,
+    popch1020p = pop_chng_p,
+    huch1020 = hu_chng,
+    popch1020 = pop_chng
+  )
+#
+census_xw_ct20 <- read_csv("data-raw/ct20_2010xw.csv") |>  
+  dplyr::rename(
+    huch1020p = hu_chng_p,
+    popch1020p = pop_chng_p,
+    huch1020 = hu_chng,
+    popch1020 = pop_chng
+  )
 
 # Geographic Crosswalks ----
 # 1. Pure Geographic Crosswalk 
@@ -162,19 +210,24 @@ geog_xw_2020 <- read_csv("data-raw/2020_block_to_geo_crosswalk.csv")
 # Prisons, universities, airforce bases, etc.
 
 # Neighborhood to Municipality Crosswalk ---
-# TODO:
-# Add muni_id.
-nbhd_muni_xw <- read_csv("data-raw/nbhd_muni_xw.csv") |> dplyr::rename(muni_name = muni)
+nbhd_muni_xw <- read_csv("data-raw/nbhd_muni_xw.csv") |>
+  dplyr::rename(muni_name = muni) |> 
+  left_join(
+    muni_id.tbl,
+    by = c("muni_name")
+  )
 
 # ZIP Code to Municipality Crosswalk ---
-# TODO:
-# Add muni_id.
 zip_muni_xw <- read_csv("data-raw/zip_muni_xw.csv") |> 
   mutate(
     zip = str_pad(as.character(zip), width = 5, side = "left", pad = "0")
   ) |> 
   dplyr::rename(
     muni_name = muni
+  ) |> 
+  left_join(
+    muni_id.tbl,
+    by = c("muni_name")
   )
 
 # Functions that load spatial objects of common boundaries
