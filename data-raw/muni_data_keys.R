@@ -7,12 +7,9 @@ library(devtools)
 library(data.table)
 library(tidycensus)
 library(tidyverse)
-<<<<<<< Updated upstream
 library(sf)
-=======
 options(scipen = 999)
 set.seed(351)
->>>>>>> Stashed changes
 
 # if cloning repo to local machine, set wd to the mapcdatakeys folder
 # setwd("C:/Users/MAPCStaff/Desktop/GIT_Kontiki/mapcdatakeys/")
