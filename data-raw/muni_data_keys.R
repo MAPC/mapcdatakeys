@@ -256,29 +256,13 @@ muni_sf <- function(yr) {
 }
 
 block_sf <- function(yr) {
-  
-  if(yr==2010){var <- 'H001001'}
-  if(yr==2020){var <- 'H1_001N'}
-  
+ 
   id <- paste0('bl',substr(yr,3,4),'_id')
   
-  sf <-
-    get_decennial(
-      year = yr,
-      state = 'MA',
-      geography = 'block',
-      variables = var,
-      geometry = T
-    ) |> 
-    mutate(GEOID = as.numeric(GEOID)) |> 
-    select(GEOID, geometry) |> 
+  sf <- tigris::blocks(state='MA', year=yr) |> 
+    mutate(GEOID10 = as.numeric(GEOID10)) |> 
+    select(GEOID10, geometry) |> 
     setNames(c(id,'geometry'))
-  
-  xw <- paste0('geog_xw_',yr)
-  
-  blk <- get(xw) |> 
-    select(-county,-statefp,-countyfp,-cousubfp) |> 
-    left_join(sf, by = id) 
   
   return(blk)
 }
