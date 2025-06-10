@@ -194,13 +194,23 @@ census_xw_ct20 <- read_csv("data-raw/ct20_2010xw.csv") |>
 geog_xw_2010 <- read_csv("data-raw/2010_block_to_geo_crosswalk.csv")
 geog_xw_2020 <- read_csv("data-raw/2020_block_to_geo_crosswalk.csv")
 
+
 # 2. Areal Overlap Table for Geographic Crosswalks
 # TODO:
 # Column for ranking areal overlap.
+bg_muni_xw_2010 <- read_csv("data-raw/2010_block_group_muni_1to1_areal_crosswalk.csv")
+bg_muni_xw_2020 <- read_csv("data-raw/2020_block_group_muni_1to1_areal_crosswalk.csv")
+ct_muni_xw_2010 <- read_csv("data-raw/2010_tract_muni_1to1_areal_crosswalk.csv")
+ct_muni_xw_2020 <- read_csv("data-raw/2020_tract_muni_1to1_areal_crosswalk.csv")
 
 # 3. Population Overlap Table for Geographic Crosswalks
 # TODO:
 # Column for ranking population overlap.
+bg_muni_pop_xw_2010 <- read_csv("data-raw/2010_block_group_muni_1to1_pop_crosswalk.csv")
+bg_muni_pop_xw_2020 <- read_csv("data-raw/2020_block_group_muni_1to1_pop_crosswalk.csv")
+ct_muni_pop_xw_2010 <- read_csv("data-raw/2010_tract_muni_1to1_pop_crosswalk.csv")
+ct_muni_pop_xw_2020 <- read_csv("data-raw/2020_tract_muni_1to1_pop_crosswalk.csv")
+
 
 # 4. Land-use/Land Cover Exclusion Table for Geographic Crosswalks.
 # Flag for presence within a geography
@@ -231,26 +241,24 @@ zip_muni_xw <- read_csv("data-raw/zip_muni_xw.csv") |>
 
 muni_sf <- function(yr) {
   
-  if(yr==2010){var <- 'H001001'}
-  if(yr==2020){var <- 'H1_001N'}
-  
   id <- paste0('cosub_cn',substr(yr,3,4))
-  
-  sfm <-
-    get_decennial(
-      year = yr,
-      state = 'MA',
-      geography = 'county subdivision',
-      variables = var,
-      geometry = T
-    ) |> 
-    mutate(GEOID = as.numeric(GEOID)) |> 
-    select(GEOID, geometry) |> 
-    setNames(c(id,'geometry'))
+  if(yr==2010){
+    sf <- tigris::county_subdivisions(state='MA', year=yr) |> 
+      mutate(GEOID10 = as.numeric(GEOID10)) |> 
+      select(GEOID10, geometry) |> 
+      setNames(c(id,'geometry'))
+  }
+  if(yr==2020){
+    sf <- tigris::county_subdivisions(state='MA', year=yr) |> 
+      mutate(GEOID = as.numeric(GEOID)) |> 
+      select(GEOID, geometry) |> 
+      setNames(c(id,'geometry'))
+  }
   
   ms <- mapcdatakeys::all_muni_data_keys |> 
     select(muni_id, muni_name, id) |> 
-    left_join(sfm, by = id) 
+    left_join(sf, by = id) |> 
+    mutate({{id}}:=as.character(get(id)))
   
   return(ms)
 }
@@ -258,69 +266,76 @@ muni_sf <- function(yr) {
 block_sf <- function(yr) {
  
   id <- paste0('bl',substr(yr,3,4),'_id')
-  
+  if(yr==2010){
   sf <- tigris::blocks(state='MA', year=yr) |> 
     mutate(GEOID10 = as.numeric(GEOID10)) |> 
     select(GEOID10, geometry) |> 
     setNames(c(id,'geometry'))
+  }
+  if(yr==2020){
+    sf <- tigris::blocks(state='MA', year=yr) |> 
+      mutate(GEOID = as.numeric(GEOID)) |> 
+      select(GEOID, geometry) |> 
+      setNames(c(id,'geometry'))
+  }
+  xw <- paste0('geog_xw_',yr)
   
+  blk <- get(xw) |> 
+    select(eval(id),muni_id,muni_name) |> 
+    left_join(sf, by = id) |> 
+    mutate({{id}}:=as.character(get(id)))
   return(blk)
 }
 
 blockgroup_sf <- function(yr) {
   
-  if(yr==2010){var <- 'H001001'}
-  if(yr==2020){var <- 'H1_001N'}
-  
   id <- paste0('bg',substr(yr,3,4),'_id')
-  
-  sf <-
-    get_decennial(
-      year = yr,
-      state = 'MA',
-      geography = 'block group',
-      variables = var,
-      geometry = T
-    ) |> 
-    mutate(GEOID = as.numeric(GEOID)) |> 
-    select(GEOID, geometry) |> 
+  if(yr==2010){
+  sf <- tigris::block_groups(state='MA', year=yr) |> 
+    #mutate(GEOID10 = as.numeric(GEOID10)) |> 
+    select(GEOID10, geometry) |> 
     setNames(c(id,'geometry'))
-  
-  xw <- paste0('geog_xw_',yr)
-  
-  bg <- get(xw) |> 
-    select(-county,-statefp,-countyfp,-cousubfp) |> 
-    left_join(sf, by = id) 
-  
-  return(bg)
+  }
+  if(yr==2020){
+    sf <- tigris::block_groups(state='MA', year=yr) |> 
+      #mutate(GEOID = as.numeric(GEOID)) |> 
+      select(GEOID, geometry) |> 
+      setNames(c(id,'geometry'))
+  }
+  # xw <- paste0('geog_xw_',yr)
+  # 
+  # bg <- get(xw) |> 
+  #   select(eval(id),muni_id,muni_name) |> 
+  #   left_join(sf, by = id) |> 
+  #   mutate({{id}}:=as.character(get(id)))
+  # 
+  return(sf)
 }
 
 tract_sf <- function(yr) {
   
-  if(yr==2010){var <- 'H001001'}
-  if(yr==2020){var <- 'H1_001N'}
-  
   id <- paste0('ct',substr(yr,3,4),'_id')
   
-  sf <-
-    get_decennial(
-      year = yr,
-      state = 'MA',
-      geography = 'tract',
-      variables = var,
-      geometry = T
-    ) |> 
-    mutate(GEOID = as.numeric(GEOID)) |> 
-    select(GEOID, geometry) |> 
+  if(yr==2010){
+  sf <- tigris::tracts(state='MA', year=yr) |> 
+    #mutate(GEOID10 = as.numeric(GEOID10)) |> 
+    select(GEOID10, geometry) |> 
     setNames(c(id,'geometry'))
+  }
+  if(yr==2020){
+    sf <- tigris::tracts(state='MA', year=yr) |> 
+      #mutate(GEOID = as.numeric(GEOID)) |> 
+      select(GEOID, geometry) |> 
+      setNames(c(id,'geometry'))
+  }
+  # xw <- paste0('geog_xw_',yr)
+  # 
+  # ct <- get(xw) |> 
+  #   select(eval(id),muni_id,muni_name) |> 
+  #   left_join(sf, by = id) |> 
+  #   mutate({{id}}:=as.character(get(id)))
   
-  xw <- paste0('geog_xw_',yr)
-  
-  ct <- get(xw) |> 
-    select(-county,-statefp,-countyfp,-cousubfp) |> 
-    left_join(sf, by = id) 
-  
-  return(ct)
+  return(sf)
 }
 
 ej_sf <- readRDS('data-raw/environmental_justice_blockgroups_2020_shapefile.rds')
