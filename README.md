@@ -6,8 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-# `UPDATE 2025-06-17: Updates to the block_sf(), blockgroup_sf(), tract_sf(), and muni_sf() functions fix previous bugs`
-# `UPDATE 2025-06-17: Two new sets of crosswalk tables added to address the one-to-many relationship between blockgroups/tracts and municipalities`
+### `UPDATE 2025-06-17: Updates to the block_sf(), blockgroup_sf(), tract_sf(), and muni_sf() functions fix previous bugs`
+### `UPDATE 2025-06-17: Two new sets of crosswalk tables added to address the one-to-many relationship between blockgroups/tracts and municipalities`
 
 
 ## `UPDATE: ACS 2016-20 Municipal GEOIDS added to mapcdatakeys::all_muni_data_keys() function`
