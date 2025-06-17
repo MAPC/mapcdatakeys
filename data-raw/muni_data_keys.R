@@ -198,18 +198,18 @@ geog_xw_2020 <- read_csv("data-raw/2020_block_to_geo_crosswalk.csv")
 # 2. Areal Overlap Table for Geographic Crosswalks
 # TODO:
 # Column for ranking areal overlap.
-bg_muni_xw_2010 <- read_csv("data-raw/bg10_muni_maxoverlap_join.csv")
-bg_muni_xw_2020 <- read_csv("data-raw/bg20_muni_maxoverlap_join.csv")
-ct_muni_xw_2010 <- read_csv("data-raw/ct10_muni_maxoverlap_join.csv")
-ct_muni_xw_2020 <- read_csv("data-raw/ct20_muni_maxoverlap_join.csv")
+bg_muni_xw_2010 <- read_csv("data-raw/bg10_muni_1to1_areal_crosswalk.csv")
+bg_muni_xw_2020 <- read_csv("data-raw/bg20_muni_1to1_areal_crosswalk.csv")
+ct_muni_xw_2010 <- read_csv("data-raw/ct10_muni_1to1_areal_crosswalk.csv")
+ct_muni_xw_2020 <- read_csv("data-raw/ct20_muni_1to1_areal_crosswalk.csv")
 
 # 3. Population Overlap Table for Geographic Crosswalks
 # TODO:
 # Column for ranking population overlap.
-# bg_muni_pop_xw_2010 <- read_csv("data-raw/2010_block_group_muni_1to1_pop_crosswalk.csv")
-# bg_muni_pop_xw_2020 <- read_csv("data-raw/2020_block_group_muni_1to1_pop_crosswalk.csv")
-# ct_muni_pop_xw_2010 <- read_csv("data-raw/2010_tract_muni_1to1_pop_crosswalk.csv")
-# ct_muni_pop_xw_2020 <- read_csv("data-raw/2020_tract_muni_1to1_pop_crosswalk.csv")
+bg_muni_pop_xw_2010 <- read_csv("data-raw/bg10_muni_1to1_pop_crosswalk.csv")
+bg_muni_pop_xw_2020 <- read_csv("data-raw/bg20_muni_1to1_pop_crosswalk.csv")
+ct_muni_pop_xw_2010 <- read_csv("data-raw/ct10_muni_1to1_pop_crosswalk.csv")
+ct_muni_pop_xw_2020 <- read_csv("data-raw/ct20_muni_1to1_pop_crosswalk.csv")
 
 
 # 4. Land-use/Land Cover Exclusion Table for Geographic Crosswalks.
@@ -298,18 +298,24 @@ blockgroup_sf <- function(yr) {
   
   id <- paste0('bg',substr(yr,3,4),'_id')
   if(yr==2010){
-  sf <- tigris::block_groups(state='MA', year=yr) |> 
+    xw <- bg_muni_xw_2010 |> 
+      mutate({{id}}:=as.character(get(id))) 
+    sf <- tigris::block_groups(state='MA', year=yr) |> 
     select(GEOID10, geometry) |> 
     setNames(c(id,'geometry')) |> 
-    st_as_sf()
-  sf <- st_transform(sf, crs = 26986)
+    left_join(xw, by=id) |> 
+    st_as_sf() |> 
+    st_transform(crs = 26986)
   }
   if(yr==2020){
+    xw <- bg_muni_xw_2020 |> 
+      mutate({{id}}:=as.character(get(id))) 
     sf <- tigris::block_groups(state='MA', year=yr) |> 
       select(GEOID, geometry) |> 
       setNames(c(id,'geometry')) |> 
-      st_as_sf()
-    sf <- st_transform(sf, crs = 26986)
+      left_join(xw, by=id) |> 
+      st_as_sf() |> 
+      st_transform(crs = 26986)
   }
   return(sf)
 }
@@ -319,18 +325,24 @@ tract_sf <- function(yr) {
   id <- paste0('ct',substr(yr,3,4),'_id')
   
   if(yr==2010){
+    xw <- ct_muni_xw_2010 |> 
+      mutate({{id}}:=as.character(get(id))) 
   sf <- tigris::tracts(state='MA', year=yr) |> 
     select(GEOID10, geometry) |> 
     setNames(c(id,'geometry')) |> 
-    st_as_sf()
-  sf <- st_transform(sf, crs = 26986)
+    left_join(xw, by=id) |> 
+    st_as_sf() |> 
+    st_transform(crs = 26986)
   }
   if(yr==2020){
+    xw <- ct_muni_xw_2020 |> 
+      mutate({{id}}:=as.character(get(id))) 
     sf <- tigris::tracts(state='MA', year=yr) |> 
       select(GEOID, geometry) |> 
       setNames(c(id,'geometry')) |> 
-      st_as_sf()
-    sf <- st_transform(sf, crs = 26986)
+      left_join(xw, by=id) |> 
+      st_as_sf() |> 
+      st_transform(crs = 26986)
   }
   
   return(sf)
