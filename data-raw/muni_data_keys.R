@@ -356,7 +356,7 @@ ej_sf <- readRDS('data-raw/environmental_justice_blockgroups_2020_shapefile.rds'
 usethis::use_data(census_muni_keys, all_muni_data_keys, community_type, rpa_data_keys,
                   mapc_data_keys, mbta_data_keys, census_xw_bl10, census_xw_bg10,
                   census_xw_ct10, census_xw_bl20, census_xw_bg20, census_xw_ct20, 
-                  geog_xw_2010, geog_xw_2020, census_xw_mu, nbhd_muni_xw, zip_muni_xw, ej_sf, muni_sf, block_sf, blockgroup_sf, tract_sf, bg_muni_xw_2010, bg_muni_xw_2020, ct_muni_xw_2010, ct_muni_xw_2020,
+                  geog_xw_2010, geog_xw_2020, census_xw_mu, nbhd_muni_xw, zip_muni_xw, ej_sf, muni_sf, block_sf, blockgroup_sf, tract_sf, bg_muni_xw_2010, bg_muni_xw_2020, ct_muni_xw_2010, ct_muni_xw_2020, bg_muni_pop_xw_2010, ct_muni_pop_xw_2010, bg_muni_pop_xw_2020, ct_muni_pop_xw_2020,
                   overwrite = TRUE, internal = FALSE)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
