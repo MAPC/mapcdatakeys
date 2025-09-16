@@ -298,7 +298,7 @@ blockgroup_sf <- function(yr) {
   
   id <- paste0('bg',substr(yr,3,4),'_id')
   if(yr==2010){
-    xw <- bg_muni_xw_2010 |> 
+    xw <- mapcdatakeys::bg_muni_xw_2010 |> 
       mutate({{id}}:=as.character(get(id))) 
     sf <- tigris::block_groups(state='MA', year=yr) |> 
     select(GEOID10, geometry) |> 
@@ -308,7 +308,7 @@ blockgroup_sf <- function(yr) {
     st_transform(crs = 26986)
   }
   if(yr==2020){
-    xw <- bg_muni_xw_2020 |> 
+    xw <- mapcdatakeys::bg_muni_xw_2020 |> 
       mutate({{id}}:=as.character(get(id))) 
     sf <- tigris::block_groups(state='MA', year=yr) |> 
       select(GEOID, geometry) |> 
@@ -325,7 +325,7 @@ tract_sf <- function(yr) {
   id <- paste0('ct',substr(yr,3,4),'_id')
   
   if(yr==2010){
-    xw <- ct_muni_xw_2010 |> 
+    xw <- mapcdatakeys::ct_muni_xw_2010 |> 
       mutate({{id}}:=as.character(get(id))) 
   sf <- tigris::tracts(state='MA', year=yr) |> 
     select(GEOID10, geometry) |> 
@@ -335,7 +335,7 @@ tract_sf <- function(yr) {
     st_transform(crs = 26986)
   }
   if(yr==2020){
-    xw <- ct_muni_xw_2020 |> 
+    xw <- mapcdatakeys::ct_muni_xw_2020 |> 
       mutate({{id}}:=as.character(get(id))) 
     sf <- tigris::tracts(state='MA', year=yr) |> 
       select(GEOID, geometry) |> 

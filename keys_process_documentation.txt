@@ -26,13 +26,13 @@ library(devtools)
 
 
 Step 1: Generate New Data
-The RScript file called muni_data_keys.R in the data-raw folder creates the various data-tables we have in our package. It has instructions on how to edit and run it to add the latest annual municipal geoid values.
+The RScript file called mapcdatakeys_package_update_script.R in the top-level mapcdatakeys folder creates the various data-tables we have in our package. It has instructions on how to edit and run it to add the latest annual municipal geoid values.
 
 Please add the most recent year to the list of years on line 16 to update the "cosub_id" column in the 
 
 If any additional tables are added, please add them to the list of tables to be published on line 179.
 
-Run this entire file and follow instructions if you want to add or make any changes.
+Run that entire script and follow instructions if you want to add or make any changes.
 
 Step 2: Check for Errors and Warnings:
 Run the following code in the Console:
