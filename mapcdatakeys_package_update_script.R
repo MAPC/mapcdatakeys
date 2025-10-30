@@ -305,7 +305,7 @@ block_sf <- function(yr) {
       dplyr::select(GEOID, geometry) |>
       stats::setNames(c(id, 'geometry'))
   }
-  xw <- paste0('geog_xw_', yr)
+  xw <- paste0('mapcdatakeys::geog_xw_', yr)
   
   blk <- get(xw) |>
     dplyr::select(eval(id), muni_id, muni_name) |>
