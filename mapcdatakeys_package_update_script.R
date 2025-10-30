@@ -103,7 +103,7 @@ all_muni_data_keys <- muni_data_keys_new |>
       muni_name == "Duxbury" ~ 399,
       .default = rpa_id
     ),
-    subrg_full = paste0(subrg_nm, ' (', subrg_acr, ')')
+    subrg_full = paste0(subrg_nm, ' Subregion (', subrg_acr, ')')
   ) |>
   select(-c(rpa_alt)) |>
   relocate(mpo, mpo_name, mpo_id, .after = rpa_name) |> 
