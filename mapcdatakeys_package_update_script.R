@@ -102,10 +102,12 @@ all_muni_data_keys <- muni_data_keys_new |>
       muni_name == "Pembroke" ~ 399,
       muni_name == "Duxbury" ~ 399,
       .default = rpa_id
-    )
+    ),
+    subrg_full = paste0(subrg_nm, ' (', subrg_acr, ')')
   ) |>
   select(-c(rpa_alt)) |>
-  relocate(mpo, mpo_name, mpo_id, .after = rpa_name)
+  relocate(mpo, mpo_name, mpo_id, .after = rpa_name) |> 
+  relocate(subrg_full, .after = subrg_nm)
 
 # Pull muni_id indicator to add to other muni-level tables
 muni_id.tbl <- all_muni_data_keys |> select(muni_id, muni_name)
@@ -299,7 +301,7 @@ block_sf <- function(yr) {
   }
   if (yr == 2020) {
     sf <- tigris::blocks(state = 'MA', year = yr) |>
-      dplyr::mutate(GEOID = as.numeric(GEOID)) |>
+      dplyr::mutate(GEOID = as.numeric(GEOID20)) |>
       dplyr::select(GEOID, geometry) |>
       stats::setNames(c(id, 'geometry'))
   }
