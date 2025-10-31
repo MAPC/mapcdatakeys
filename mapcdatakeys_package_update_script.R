@@ -300,22 +300,27 @@ block_sf <- function(yr) {
       dplyr::mutate(GEOID10 = as.numeric(GEOID10)) |>
       dplyr::select(GEOID10, geometry) |>
       stats::setNames(c(id, 'geometry'))
+    blk <- mapcdatakeys::geog_xw_2010 |>
+      dplyr::select(eval(id), muni_id, muni_name) |>
+      dplyr::left_join(sf, by = id) |>
+      dplyr::mutate({{id}} := as.character(get(id))) |>
+      sf::st_as_sf()
+    blk <- sf::st_transform(blk, crs = 26986)
+    return(blk)
   }
   if (yr == 2020) {
     sf <- tigris::blocks(state = 'MA', year = yr) |>
       dplyr::mutate(GEOID = as.numeric(GEOID20)) |>
       dplyr::select(GEOID, geometry) |>
       stats::setNames(c(id, 'geometry'))
-  }
-  xw <- paste0('mapcdatakeys::geog_xw_', yr)
-  
-  blk <- get(xw) |>
+  blk <- mapcdatakeys::geog_xw_2020 |>
     dplyr::select(eval(id), muni_id, muni_name) |>
     dplyr::left_join(sf, by = id) |>
     dplyr::mutate({{id}} := as.character(get(id))) |>
     sf::st_as_sf()
   blk <- sf::st_transform(blk, crs = 26986)
   return(blk)
+  }
 }
 
 blockgroup_sf <- function(yr) {
