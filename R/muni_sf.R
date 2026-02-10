@@ -28,7 +28,7 @@ muni_sf <- function(yr) {
   }
   
   ms <- mapcdatakeys::all_muni_data_keys |>
-    dplyr::select(muni_id, muni_name, id) |>
+    dplyr::select(muni_id, muni_name, mpo, rpa_acr, id) |>
     dplyr::left_join(sf, by = id) |>
     dplyr::mutate({{id}} := as.character(get(id))) |>
     sf::st_as_sf()
