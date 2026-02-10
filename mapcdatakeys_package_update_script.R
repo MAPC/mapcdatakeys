@@ -22,7 +22,7 @@ set.seed(351)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 # ~~~ USER INPUT REQUIRED ~~~ #
 # Add last year of ACS data you wish to update into the "years" list below
-years <- c(2020, 2021, 2022, 2023)
+years <- c(2020, 2021, 2022, 2023, 2024)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 # 0.3 Create function which reads in and cleans each new year of ACS data
@@ -110,6 +110,16 @@ all_muni_data_keys <- muni_data_keys_new |>
   select(-c(rpa_alt)) |>
   relocate(mpo, mpo_name, mpo_id, .after = rpa_name) |> 
   relocate(subrg_full, .after = subrg_nm)
+
+# Revise subrg_nm field to match format in ACS processing scripts - 2026-02-10
+
+subrg <- read_csv('data-raw/subregion_names_acs.csv')
+
+all_muni_data_keys <- all_muni_data_keys |> 
+  left_join(subrg, by='subrg_id') |> 
+  mutate(subrg_nm = subregion) |> 
+  select(-subregion)
+
 
 # Pull muni_id indicator to add to other muni-level tables
 muni_id.tbl <- all_muni_data_keys |> select(muni_id, muni_name)
@@ -233,6 +243,8 @@ bg_muni_xw_2010 <- read_csv("data-raw/bg10_muni_1to1_areal_crosswalk.csv")
 bg_muni_xw_2020 <- read_csv("data-raw/bg20_muni_1to1_areal_crosswalk.csv")
 ct_muni_xw_2010 <- read_csv("data-raw/ct10_muni_1to1_areal_crosswalk.csv")
 ct_muni_xw_2020 <- read_csv("data-raw/ct20_muni_1to1_areal_crosswalk.csv")
+puma_muni_xw_2010 <- read_csv("data-raw/puma10_muni_many_to_one_intersect.csv")
+puma_muni_xw_2020 <- read_csv("data-raw/puma20_muni_many_to_one_intersect.csv")
 
 # 3. Population Overlap Table for Geographic Crosswalks
 # TODO:
@@ -263,118 +275,8 @@ zip_muni_xw <- read_csv("data-raw/zip_muni_xw.csv") |>
   dplyr::rename(muni_name = muni) |>
   left_join(muni_id.tbl, by = c("muni_name"))
 
-# Functions that load spatial objects of common boundaries
 
-muni_sf <- function(yr) {
-  id <- paste0('cosub_cn', substr(yr, 3, 4))
-  if (yr == 2010) {
-    sf <- tigris::county_subdivisions(state = 'MA', year = yr) |>
-      dplyr::mutate(GEOID10 = as.numeric(GEOID10)) |>
-      dplyr::select(GEOID10, geometry) |>
-      stats::setNames(c(id, 'geometry')) |>
-      sf::st_as_sf()
-    
-  }
-  if (yr == 2020) {
-    sf <- sf::st_as_sf(tigris::county_subdivisions(state = 'MA', year = yr)) |>
-      dplyr::mutate(GEOID = as.numeric(GEOID)) |>
-      dplyr::select(GEOID, geometry) |>
-      stats::setNames(c(id, 'geometry')) |>
-      sf::st_as_sf()
-  }
-  
-  ms <- mapcdatakeys::all_muni_data_keys |>
-    dplyr::select(muni_id, muni_name, id) |>
-    dplyr::left_join(sf, by = id) |>
-    dplyr::mutate({{id}} := as.character(get(id))) |>
-    sf::st_as_sf()
-  msp <- sf::st_transform(ms, crs = 26986)
-  
-  return(msp)
-}
-
-block_sf <- function(yr) {
-  id <- paste0('bl', substr(yr, 3, 4), '_id')
-  if (yr == 2010) {
-    sf <- tigris::blocks(state = 'MA', year = yr) |>
-      dplyr::mutate(GEOID10 = as.numeric(GEOID10)) |>
-      dplyr::select(GEOID10, geometry) |>
-      stats::setNames(c(id, 'geometry'))
-    blk <- mapcdatakeys::geog_xw_2010 |>
-      dplyr::select(eval(id), muni_id, muni_name) |>
-      dplyr::left_join(sf, by = id) |>
-      dplyr::mutate({{id}} := as.character(get(id))) |>
-      sf::st_as_sf()
-    blk <- sf::st_transform(blk, crs = 26986)
-    return(blk)
-  }
-  if (yr == 2020) {
-    sf <- tigris::blocks(state = 'MA', year = yr) |>
-      dplyr::mutate(GEOID = as.numeric(GEOID20)) |>
-      dplyr::select(GEOID, geometry) |>
-      stats::setNames(c(id, 'geometry'))
-  blk <- mapcdatakeys::geog_xw_2020 |>
-    dplyr::select(eval(id), muni_id, muni_name) |>
-    dplyr::left_join(sf, by = id) |>
-    dplyr::mutate({{id}} := as.character(get(id))) |>
-    sf::st_as_sf()
-  blk <- sf::st_transform(blk, crs = 26986)
-  return(blk)
-  }
-}
-
-blockgroup_sf <- function(yr) {
-  id <- paste0('bg', substr(yr, 3, 4), '_id')
-  if (yr == 2010) {
-    xw <- mapcdatakeys::bg_muni_xw_2010 |>
-      dplyr::mutate({{id}} := as.character(get(id)))
-    sf <- tigris::block_groups(state = 'MA', year = yr) |>
-      dplyr::select(GEOID10, geometry) |>
-      stats::setNames(c(id, 'geometry')) |>
-      dplyr::left_join(xw, by = id) |>
-      sf::st_as_sf() |>
-      sf::st_transform(crs = 26986)
-  }
-  if (yr == 2020) {
-    xw <- mapcdatakeys::bg_muni_xw_2020 |>
-      dplyr::mutate({{id}} := as.character(get(id)))
-    sf <- tigris::block_groups(state = 'MA', year = yr) |>
-      dplyr::select(GEOID, geometry) |>
-      stats::setNames(c(id, 'geometry')) |>
-      dplyr::left_join(xw, by = id) |>
-      sf::st_as_sf() |>
-      sf::st_transform(crs = 26986)
-  }
-  return(sf)
-}
-
-tract_sf <- function(yr) {
-  id <- paste0('ct', substr(yr, 3, 4), '_id')
-  
-  if (yr == 2010) {
-    xw <- mapcdatakeys::ct_muni_xw_2010 |>
-      dplyr::mutate({{id}} := as.character(get(id)))
-    sf <- tigris::tracts(state = 'MA', year = yr) |>
-      dplyr::select(GEOID10, geometry) |>
-      stats::setNames(c(id, 'geometry')) |>
-      dplyr::left_join(xw, by = id) |>
-      sf::st_as_sf() |>
-      sf::st_transform(crs = 26986)
-  }
-  if (yr == 2020) {
-    xw <- mapcdatakeys::ct_muni_xw_2020 |>
-      dplyr::mutate({{id}} := as.character(get(id)))
-    sf <- tigris::tracts(state = 'MA', year = yr) |>
-      dplyr::select(GEOID, geometry) |>
-      stats::setNames(c(id, 'geometry')) |>
-      dplyr::left_join(xw, by = id) |>
-      sf::st_as_sf() |>
-      sf::st_transform(crs = 26986)
-  }
-  
-  return(sf)
-}
-
+# Environmental Justics Block Groups Shapefile for 2020
 ej_sf <- readRDS('data-raw/environmental_justice_blockgroups_2020_shapefile.rds')
 
 
@@ -399,10 +301,6 @@ usethis::use_data(
   nbhd_muni_xw,
   zip_muni_xw,
   ej_sf,
-  muni_sf,
-  block_sf,
-  blockgroup_sf,
-  tract_sf,
   bg_muni_xw_2010,
   bg_muni_xw_2020,
   ct_muni_xw_2010,
@@ -411,10 +309,13 @@ usethis::use_data(
   ct_muni_pop_xw_2010,
   bg_muni_pop_xw_2020,
   ct_muni_pop_xw_2020,
+  puma_muni_xw_2010,
+  puma_muni_xw_2020,
   overwrite = TRUE,
   internal = FALSE
 )
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 #Check for errors in compiling the package
-devtools::check(document = FALSE)
+devtools::document()
+devtools::check()

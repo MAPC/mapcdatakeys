@@ -1,0 +1,16 @@
+#' Crosswalk Between 2010 PUMAs and all municipalities or portions of municipalities contained within
+#'
+#' This crosswalk provides a way to identify which municipalities (or portions thereof) lay within each of the 2010 PUMAs
+#' 
+#' @format A tibble with 521 rows and 9 variables:
+#' \describe{
+#'   \item{PUMACE10}{chr 2010 PUMA Code}
+#'   \item{muni_id}{dbl Municipal ID Number 1 Abington through 351 Yarmouth}
+#'   \item{muni_name}{chr Official Municipality name}
+#'   \item{cosub_cn20}{chr 2020 Census GEOID for county subdivision (muni)}
+#'   \item{pct_muni_area_overlap}{num Percent of municipality's total area that overlaps with PUMA}
+#'   \item{muni_area_m2}{num Total area in square meters of municipality}
+#'   \item{puma10_area_m2}{num Total area in square meters of 2010 PUMA}
+#'   \item{join_type}{chr method of spatial join applied to the two layers}
+#' }
+"puma_muni_xw_2010"

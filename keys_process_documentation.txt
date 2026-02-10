@@ -38,12 +38,17 @@ Step 2: Check for Errors and Warnings:
 Run the following code in the Console:
 
 devtools::check(document=FALSE)
-
 This will take a bit of time. If there are no errors or warnings, proceed. You may get some notes, but you can ignore that. If there are any errors or warnings, check the message and rectify. Repeat until you get no error or warning messages.
+
 
 Step 3: Documentation
 
-Unless you're creating a new package, this step is not necessary.
+If you have added or changed documentation you must run:
+devtools::document()
+before you can run 
+devtools:check()
+
+Unless you're creating a new package or have edited the documentation, this step is not necessary.
 
 Step 4: Installation
 
@@ -61,5 +66,4 @@ Push to the MAPC/mapcdatakeys Github repo!
 Step 6: Remote Installation
 To install this package on any system, run the following code in that system:
 
-# install.packages("remotes")
-remotes::install_github("rstudio4edu/testpackage")
+devtools::install_github("MAPC/mapcdatakeys")

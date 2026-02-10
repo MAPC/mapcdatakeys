@@ -9,7 +9,7 @@
 This package provides various data keys for different Massachusetts political and census geographies, such as municipalities, census tracts, counties, etc.
 }
 \author{
-\strong{Maintainer}: MAPC Boston, MA \email{adeodhar@mapc.org} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: MAPC Boston, MA \email{cgately@mapc.org}
 
 }
 \keyword{internal}

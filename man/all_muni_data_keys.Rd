@@ -27,9 +27,10 @@ A tibble with 351 rows and 47 variables:
 \item{region_id}{dbl Geographic Region in Massachusetts ID}
 \item{region}{chr Geographic Region in Massachusetts Name}
 \item{subrg_id}{dbl MAPC Subregion ID}
-\item{subrg_nm}{chr MAPC Subregion Name}
 \item{subrg_acr}{chr MAPC Subregion Acronym}
 \item{subrg_alt}{chr Secondary MAPC Subregion}
+\item{subrg_nm}{chr MAPC Subregion Name}
+\item{subrg_full}{chr MAPC Subregion Name with acronym appended}
 \item{bg_region}{chr Boston Globe Region}
 \item{rta_acr}{chr RTA - Regional Transit Authority Acronym}
 \item{rta_name}{chr RTA - Regional Transit Authority Name}
