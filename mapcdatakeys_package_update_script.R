@@ -265,15 +265,7 @@ nbhd_muni_xw <- read_csv("data-raw/nbhd_muni_xw.csv") |>
   left_join(muni_id.tbl, by = c("muni_name"))
 
 # ZIP Code to Municipality Crosswalk ---
-zip_muni_xw <- read_csv("data-raw/zip_muni_xw.csv") |>
-  mutate(zip = str_pad(
-    as.character(zip),
-    width = 5,
-    side = "left",
-    pad = "0"
-  )) |>
-  dplyr::rename(muni_name = muni) |>
-  left_join(muni_id.tbl, by = c("muni_name"))
+zip_muni_xw <- read_csv("data-raw/zip_muni_xw.csv")
 
 
 # Environmental Justics Block Groups Shapefile for 2020
