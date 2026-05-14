@@ -22,7 +22,10 @@ set.seed(351)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 # ~~~ USER INPUT REQUIRED ~~~ #
 # Add last year of ACS data you wish to update into the "years" list below
-years <- c(2020, 2021, 2022, 2023, 2024)
+
+# Currently updated through 2023
+# years <- c(2020,2021,2022,2023)
+years <- c(2024)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ #
 
 # 0.3 Create function which reads in and cleans each new year of ACS data
@@ -55,7 +58,8 @@ acs_name <- function(acs_year) {
 #===============================================================================
 # 1.0 All Muni Data Keys ------------------------------------------------------
 # 1.1 Loads base muni_data_keys file
-muni_data_keys_new <- read_csv("data-raw/muni_data_keys_new.csv")
+# muni_data_keys_new <- read_csv("data-raw/muni_data_keys_new.csv")
+muni_data_keys_new <- read_csv(paste0("data-raw/muni_data_keys_",min(years)-1,".csv"))
 
 # 1.2 Loop which reads each new year of ACS data.
 # Then appends the updated cosub_id to the base muni data keys file
@@ -72,6 +76,8 @@ for (i in years) {
   # Print when finished with current year
   print(paste0("Finished updating ACS Year Ending in ", i))
 }
+
+fwrite(muni_data_keys_new, paste0("data-raw/muni_data_keys_",max(years),".csv"))
 
 # 1.3 Clean Parent Table and MPO fields
 all_muni_data_keys <- muni_data_keys_new |>
@@ -271,6 +277,8 @@ zip_muni_xw <- read_csv("data-raw/zip_muni_xw.csv")
 # Environmental Justics Block Groups Shapefile for 2020
 ej_sf <- readRDS('data-raw/environmental_justice_blockgroups_2020_shapefile.rds')
 
+# CTPS TAZ (traffic analysis zones) boundaries for TDM23 (and previous regional travel demand models)
+taz_sf <- readRDS('data-raw/taz_statewide.rds')
 
 # ~~~ USER INPUT REQUIRED ~~~~ #
 # If you define any new or additional tables, please add them to the list below.
@@ -293,6 +301,7 @@ usethis::use_data(
   nbhd_muni_xw,
   zip_muni_xw,
   ej_sf,
+  taz_sf,
   bg_muni_xw_2010,
   bg_muni_xw_2020,
   ct_muni_xw_2010,
