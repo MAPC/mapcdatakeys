@@ -77,7 +77,6 @@ for (i in years) {
   print(paste0("Finished updating ACS Year Ending in ", i))
 }
 
-fwrite(muni_data_keys_new, paste0("data-raw/muni_data_keys_",max(years),".csv"))
 
 # 1.3 Clean Parent Table and MPO fields
 all_muni_data_keys <- muni_data_keys_new |>
@@ -115,17 +114,27 @@ all_muni_data_keys <- muni_data_keys_new |>
   ) |>
   select(-c(rpa_alt)) |>
   relocate(mpo, mpo_name, mpo_id, .after = rpa_name) |> 
-  relocate(subrg_full, .after = subrg_nm)
+  relocate(subrg_full, .after = subrg_nm) |> 
+  ##### ONE-TIME REVISION OF HISTORICALLY INACCURATE SUBREGION CODES #####
+  mutate(subrg_id = case_when(
+    subrg_acr == 'NSTF' ~ 359,
+    subrg_acr == 'NSPC' ~ 358,
+    .default = subrg_id
+  ))
 
 # Revise subrg_nm field to match format in ACS processing scripts - 2026-02-10
 
 subrg <- read_csv('data-raw/subregion_names_acs.csv')
 
+cosubs <- names(all_muni_data_keys)[grepl('cosub',names(all_muni_data_keys))]
+
 all_muni_data_keys <- all_muni_data_keys |> 
   left_join(subrg, by='subrg_id') |> 
   mutate(subrg_nm = subregion) |> 
-  select(-subregion)
+  select(all_of(-subregion)) |> 
+  relocate(cosubs, .after=muni_name)
 
+fwrite(all_muni_data_keys, paste0("data-raw/muni_data_keys_",max(years),".csv"))
 
 # Pull muni_id indicator to add to other muni-level tables
 muni_id.tbl <- all_muni_data_keys |> select(muni_id, muni_name)
@@ -280,6 +289,7 @@ ej_sf <- readRDS('data-raw/environmental_justice_blockgroups_2020_shapefile.rds'
 # CTPS TAZ (traffic analysis zones) boundaries for TDM23 (and previous regional travel demand models)
 taz_sf <- readRDS('data-raw/taz_statewide.rds')
 
+muni_coast_sf <- readRDS('data-raw/muni_coastline.rds')
 # ~~~ USER INPUT REQUIRED ~~~~ #
 # If you define any new or additional tables, please add them to the list below.
 usethis::use_data(
@@ -302,6 +312,7 @@ usethis::use_data(
   zip_muni_xw,
   ej_sf,
   taz_sf,
+  muni_coast_sf,
   bg_muni_xw_2010,
   bg_muni_xw_2020,
   ct_muni_xw_2010,

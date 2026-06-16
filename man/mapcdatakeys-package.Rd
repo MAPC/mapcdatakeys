@@ -11,5 +11,10 @@ This package provides various data keys for different Massachusetts political an
 \author{
 \strong{Maintainer}: MAPC Boston, MA \email{cgately@mapc.org}
 
+Authors:
+\itemize{
+  \item MAPC Boston, MA \email{cgately@mapc.org}
+}
+
 }
 \keyword{internal}
