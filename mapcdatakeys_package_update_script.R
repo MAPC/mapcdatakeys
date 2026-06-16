@@ -131,7 +131,6 @@ cosubs <- names(all_muni_data_keys)[grepl('cosub',names(all_muni_data_keys))]
 all_muni_data_keys <- all_muni_data_keys |> 
   left_join(subrg, by='subrg_id') |> 
   mutate(subrg_nm = subregion) |> 
-  select(all_of(-subregion)) |> 
   relocate(cosubs, .after=muni_name)
 
 fwrite(all_muni_data_keys, paste0("data-raw/muni_data_keys_",max(years),".csv"))
