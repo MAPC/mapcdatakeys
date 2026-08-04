@@ -288,7 +288,9 @@ ej_sf <- readRDS('data-raw/environmental_justice_blockgroups_2020_shapefile.rds'
 # CTPS TAZ (traffic analysis zones) boundaries for TDM23 (and previous regional travel demand models)
 taz_sf <- readRDS('data-raw/taz_statewide.rds')
 
-muni_coast_sf <- readRDS('data-raw/muni_coastline.rds')
+muni_coast_sf <- st_read(dsn = 'data-raw/muni_coastline.gpkg',
+                         layer = 'muni_cropped_coastline')
+
 # ~~~ USER INPUT REQUIRED ~~~~ #
 # If you define any new or additional tables, please add them to the list below.
 usethis::use_data(
